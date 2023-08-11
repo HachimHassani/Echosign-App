@@ -1,11 +1,16 @@
 const mongoose = require("mongoose");
+const { db } = require("../models/user");
 
 const { MONGO_URI } = process.env;
 
 exports.connect = () => {
   // Connecting to the database
   mongoose
-    .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true,
+    user: 'admin',
+    pass: 'adminpass',
+    authSource: 'admin',
+  dbname: 'echosign' })
     .then(() => {
       console.log("Successfully connected to database");
     })

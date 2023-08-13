@@ -1,10 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Link } from 'expo-router';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>main page!</Text>
+      <Link href="/auth/login">login</Link>
+
+<Link href="/user/bacon">View user</Link>
       <StatusBar style="auto" />
     </View>
   );

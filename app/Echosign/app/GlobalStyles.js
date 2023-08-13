@@ -1,11 +1,13 @@
+import { useFonts, poppinsLight,poppinsMedium, macPawFixel,poppinsRegular,poppinsSemiBold , body1} from 'expo-font';
 /* fonts */
+
 export const FontFamily = {
-    poppinsSemiBold: "Poppins-SemiBold",
-    macPawFixel: "MacPaw Fixel",
-    poppinsRegular: "Poppins-Regular",
-    poppinsMedium: "Poppins-Medium",
-    poppinsLight: "Poppins-Light",
-    body1: "OpenSans-Regular",
+  "Poppins-SemiBold": poppinsSemiBold ,
+    "MacPaw Fixel" :macPawFixel ,
+    "Poppins-Regular" :poppinsRegular ,
+    "Poppins-Medium" :poppinsMedium ,
+   "Poppins-Light" : poppinsLight ,
+    "OpenSans-Regular" :body1 ,
   };
   /* font sizes */
   export const FontSize = {

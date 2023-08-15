@@ -7,12 +7,12 @@ import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
 
 const login = () => {
   return (
-    <View style={styles.view}>
+    <View className="mt-8 px-2" style={styles.view}>
       <StatusBar style={styles.childLayout} barStyle="default" />
       <View style={[styles.child, styles.childLayout]} />
       <View style={[styles.rectangleParent, styles.groupChildLayout]}>
         <View style={[styles.groupChild, styles.groupChildLayout]} />
-        <Text style={styles.dontHaveAn}>Don’t have an account ? register</Text>
+        <Text className="text-2xl text-blue-100 dark:text-white">Don’t have an account ? register</Text>
       </View>
       <Text style={[styles.welcomeBack, styles.welcomeBackPosition]}>
         Welcome back ! log in !!

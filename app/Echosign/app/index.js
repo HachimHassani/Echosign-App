@@ -8,7 +8,7 @@ export default function App() {
       <Text>main page!</Text>
       <Link href="/auth/login">login</Link>
 
-<Link href="/user/bacon">View user</Link>
+  <Link href="/test">Test</Link>
       <StatusBar style="auto" />
     </View>
   );

@@ -1,46 +1,35 @@
 import * as React from "react";
-import { StatusBar, StyleSheet, View, Text } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from 'expo-status-bar';
 
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
 
 const login = () => {
   return (
-    <View className="mt-8 px-2" style={styles.view}>
-      <StatusBar style={styles.childLayout} barStyle="default" />
-      <View style={[styles.child, styles.childLayout]} />
-      <View style={[styles.rectangleParent, styles.groupChildLayout]}>
-        <View style={[styles.groupChild, styles.groupChildLayout]} />
-        <Text className="text-2xl text-blue-100 dark:text-white">Don’t have an account ? register</Text>
-      </View>
-      <Text style={[styles.welcomeBack, styles.welcomeBackPosition]}>
-        Welcome back ! log in !!
-      </Text>
-      <Text
-        style={[styles.lorenIpsumSdjfcs, styles.welcomeBackPosition]}
-      >{`loren ipsum sdjfcs chfhsche chcth cethce cthecet hcetch `}</Text>
-      <View style={styles.sliderStarter}>
-        <View style={styles.sliderStarterChild} />
-        <View style={[styles.sliderStarterItem, styles.sliderLayout]} />
-        <View style={[styles.sliderStarterInner, styles.sliderLayout]} />
-      </View>
-      <View style={[styles.seperator, styles.seperatorPosition]} />
-      
-      
-      <View style={[styles.group3btnConponent, styles.seperatorPosition]}>
-        <LinearGradient
-          style={[styles.group3btnConponentChild, styles.group3btnLayout]}
-          locations={[0.29, 0.98]}
-          colors={["#1aa6b7", "#54bd95"]}
-        />
-        <Text style={[styles.next, styles.nextTypo]}>login</Text>
-        <Text style={[styles.back, styles.nextTypo]}>Back</Text>
-        <View style={[styles.group3btnConponentItem, styles.group3btnLayout]} />
-      </View>
+    <View className="flex-1 justify-center items-center bg-gray-100">
+      <StatusBar style="auto" />
+      <Text className="text-3xl font-semibold mb-4">Login</Text>
+      <TextInput
+        className="w-64 h-10 px-2 border border-gray-300 rounded mb-2"
+        placeholder="Username"
+      />
+      <TextInput
+        className="w-64 h-10 px-2 border border-gray-300 rounded mb-4"
+        placeholder="Password"
+        secureTextEntry
+      />
+      <TouchableOpacity
+        className="bg-blue-500 rounded w-32 h-10 flex justify-center items-center"
+        onPress={() => navigation.navigate('Home')}
+      >
+        <Text className="text-white font-semibold">Login</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   childLayout: {

@@ -1,33 +1,84 @@
 import * as React from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 
-import { LinearGradient } from "expo-linear-gradient";
-import { StatusBar } from 'expo-status-bar';
 
+import { Authenticator, useAuthenticator , picture} from '@aws-amplify/ui-react-native'
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
-
-const login = () => {
+const MyAppHeader = () => {
+  const {
+    tokens: { space, fontSizes },
+  } = useTheme();
   return (
-    <View className="flex-1 justify-center items-center bg-gray-100">
-      <StatusBar style="auto" />
-      <Text className="text-3xl font-semibold mb-4">Login</Text>
-      <TextInput
-        className="w-64 h-10 px-2 border border-gray-300 rounded mb-2"
-        placeholder="Username"
-      />
-      <TextInput
-        className="w-64 h-10 px-2 border border-gray-300 rounded mb-4"
-        placeholder="Password"
-        secureTextEntry
-      />
-      <TouchableOpacity
-        className="bg-blue-500 rounded w-32 h-10 flex justify-center items-center"
-        onPress={() => navigation.navigate('Home')}
-      >
-        <Text className="text-white font-semibold">Login</Text>
-      </TouchableOpacity>
+    <View>
+      <Text style={{ fontSize: fontSizes.xxxl, padding: space.xl }}>
+        My Header
+      </Text>
     </View>
   );
+};
+const formFields = {
+  signIn: {
+    username: {
+      placeholder: 'Enter Your Email Here',
+      isRequired: true,
+      label: 'Email:'
+    },
+    password: {
+      placeholder: 'Enter Your Password Here',
+      isRequired: true,
+      label: 'Password:'
+    },
+  },
+  signUp: {
+    picture: {
+      placeholder: 'Enter Your Email Here',
+      isRequired: true,
+      label: 'Email:'
+    },
+    password: {
+      placeholder: 'Enter Your Password Here',
+      isRequired: true,
+      label: 'Password:'
+    },
+    confirmPassword: {
+      placeholder: 'Confirm Your Password Here',
+      isRequired: true,
+      label: 'Confirm Password:'
+    },
+  },
+
+}
+const customcomponents = {
+  signUp: {
+    FormFields() {
+      return (
+        <>
+                {/* Re-use default `Authenticator.SignUp.FormFields` */}
+                <Authenticator.SignUp.FormFields />
+          <Text>My Custom Sign Up Form</Text>
+        </>
+      );
+    },
+  },
+}
+        
+
+
+              
+
+const login = () => {
+  
+    return (
+      <Authenticator.Provider>
+        <Authenticator   >
+          
+          <Text>My App</Text>
+
+        </Authenticator>
+      </Authenticator.Provider>
+    );
+  
+  
 };
 
 

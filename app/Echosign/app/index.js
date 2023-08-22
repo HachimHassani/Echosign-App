@@ -1,15 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router';
-import getStarted from './(onboarding)/getStarted';
-import waiting from './(onboarding)/waiting';
-import mainPage from './(main)/mainPage';
-
+import {Link} from 'expo-router';
 
 export default function App() {
   return (
-    <View className="absolute flex-1 bg-cyan-200 top-0 items-center justify-center w-full h-[111%]">
-      <Text className="text-xl">main page!</Text>
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
       <Link href="/login" className="text-blue-500">login</Link>
       <Link href="/start" className="text-blue-500">start</Link>
       <Link href="/welcome" className="text-blue-500">welcome</Link>
@@ -26,5 +22,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  // You can keep this empty for now or customize as needed
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

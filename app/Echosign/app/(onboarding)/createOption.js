@@ -2,12 +2,14 @@
 import React from 'react';
 import { View, Image ,Text,SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import Svg, { Path } from "react-native-svg";
+import { StatusBar } from 'expo-status-bar';
 
 import BtnGreen from '../components/BtnGreen.js';
 import BtnWhite from '../components/BtnWhite.js';
 
 
 export default function sinzee() {
+  
 
   const handleButtonPress = () => {
     // Handle button press logic here
@@ -15,9 +17,12 @@ export default function sinzee() {
   };
 
   return (
-    <View className="absolute translate-y-0 flex-1 w-[100%] h-[110%]">
+    <View className="flex-1 items-center bg-cyan-400">
+      <StatusBar hidden />
 
-      
+      <View className="absolute mt-[0%] mr-[0%]">
+
+      </View>
 
       
       <View className="flex w-full h-[13%] justify-center items-center">

@@ -2,10 +2,11 @@
 import React from 'react';
 import { View, Image ,Text,SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import Svg, { Path } from "react-native-svg";
-
+import { StatusBar } from 'expo-status-bar';
 import BtnGreen from '../components/BtnGreen.js';
 import BtnWhite from '../components/BtnWhite.js';
 import ChoiceList from '../components/ChoiceList.js';
+import { router } from 'expo-router';
 
 
 export default function waiting() {
@@ -45,10 +46,10 @@ export default function waiting() {
 
         <View className="flex flex-row h-[15%] space-x-[10%] justify-center items-center">
             <View className="flex justify-center ">
-                <BtnWhite title="Back" onPress={handleButtonPress} paddingHorizontal={40}  />
+                <BtnWhite title="Back" onPress={()=>router.back()} paddingHorizontal={40}  />
             </View>
             <View className="flex justify-center ">
-                <BtnGreen title="Next" onPress={handleButtonPress} paddingHorizontal={40} />
+                <BtnGreen title="Next" onPress={()=>router.push('/waiting')} paddingHorizontal={40} />
             </View>
             
         </View>

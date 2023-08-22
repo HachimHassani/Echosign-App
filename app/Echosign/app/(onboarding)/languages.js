@@ -17,7 +17,6 @@ export default function waiting() {
 
   return (
     <View className="flex-1 items-center bg-cyan-400">
-      <StatusBar hidden />
 
       <View className="absolute mt-[120%] mr-[100%]"></View>
 

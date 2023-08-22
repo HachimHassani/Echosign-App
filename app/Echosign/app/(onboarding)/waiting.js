@@ -19,7 +19,6 @@ export default function waiting() {
     <View className="flex-1 items-center bg-cyan-400">
 
       <View className="absolute mt-[120%] mr-[100%]"></View>
-      <StatusBar hidden />
 
       
       <View className="flex w-full h-[13%] justify-center items-center">

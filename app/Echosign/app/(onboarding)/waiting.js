@@ -5,6 +5,7 @@ import Svg, { Path } from "react-native-svg";
 
 import BtnGreen from '../components/BtnGreen.js';
 import BtnWhite from '../components/BtnWhite.js';
+import { StatusBar } from 'expo-status-bar';
 
 
 export default function waiting() {
@@ -56,6 +57,7 @@ export default function waiting() {
         </View>
 
       </View>
+     
 
     </View>
   );

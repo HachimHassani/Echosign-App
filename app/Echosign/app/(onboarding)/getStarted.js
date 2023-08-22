@@ -7,6 +7,7 @@ import BtnGreen from '../components/BtnGreen.js';
 import BtnWhite from '../components/BtnWhite.js';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
 export default function GetStarted() {
   const handleButtonPress = () => {
     console.log('Button pressed!');
@@ -37,7 +38,7 @@ export default function GetStarted() {
 
       <View className="flex w-full h-[50%] rounded-t-[30] justify-center items-center bg-white">
         <View className="flex h-[50%]  mt-0 ">
-          <Text className="text-black text-3xl font-medium leading-9  mb-4 ml-10 pt-5">
+          <Text className="text-black text-3xl font-medium leading-9  mb-4 ml-8 pt-5">
             Let’s start
             <Text className="text-4xl text-[#1AA6B7] font-bold "> Speaking{"\n"}</Text>with our
             <Text className="text-4xl text-[#1AA6B7] font-bold"> Hands</Text>
@@ -52,6 +53,7 @@ export default function GetStarted() {
          
         </View>
       </View>
+      <StatusBar  style="auto" />
       
     </SafeAreaView>
   );

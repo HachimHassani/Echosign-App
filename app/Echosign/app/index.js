@@ -8,7 +8,7 @@ import mainPage from './(main)/mainPage';
 
 export default function App() {
   return (
-    <View className="flex-1 bg-cyan-200 items-center justify-center h-full">
+    <View className="absolute flex-1 bg-cyan-200 top-0 items-center justify-center w-full h-[111%]">
       <Text className="text-xl">main page!</Text>
       <Link href="/login" className="text-blue-500">login</Link>
       <Link href="/start" className="text-blue-500">start</Link>

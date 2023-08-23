@@ -4,6 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-nativ
 
 import { Authenticator, useAuthenticator , picture} from '@aws-amplify/ui-react-native'
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
+import { Redirect } from "expo-router";
 const MyAppHeader = () => {
   const {
     tokens: { space, fontSizes },
@@ -17,37 +18,25 @@ const MyAppHeader = () => {
   );
 };
 const formFields = {
-  signIn: {
-    username: {
-      placeholder: 'Enter Your Email Here',
-      isRequired: true,
-      label: 'Email:'
-    },
-    password: {
-      placeholder: 'Enter Your Password Here',
-      isRequired: true,
-      label: 'Password:'
-    },
-  },
-  signUp: {
-    picture: {
-      placeholder: 'Enter Your Email Here',
-      isRequired: true,
-      label: 'Email:'
-    },
-    password: {
-      placeholder: 'Enter Your Password Here',
-      isRequired: true,
-      label: 'Password:'
-    },
-    confirmPassword: {
-      placeholder: 'Confirm Your Password Here',
-      isRequired: true,
-      label: 'Confirm Password:'
-    },
-  },
-
-}
+   signUp: {
+     email: {
+       order:1
+     },
+     name: {
+       order: 2
+     },
+     nickname: {
+       order: 3
+     },
+     
+     password: {
+       order: 4
+     },
+     confirm_password: {
+       order: 5
+     }
+   },
+  }
 const customcomponents = {
   signUp: {
     FormFields() {
@@ -67,12 +56,12 @@ const customcomponents = {
               
 
 const login = () => {
-  
+    console.log('login');
     return (
       <Authenticator.Provider>
-        <Authenticator   >
+        <Authenticator formFields={formFields} initialState="signUp" >
           
-          <Text>My App</Text>
+          <Redirect href="/mainPage" />
 
         </Authenticator>
       </Authenticator.Provider>

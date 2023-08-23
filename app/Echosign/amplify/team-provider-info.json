@@ -9,7 +9,23 @@
       "UnauthRoleName": "amplify-echosign-staging-220811-unauthRole",
       "StackName": "amplify-echosign-staging-220811",
       "StackId": "arn:aws:cloudformation:us-east-1:476457335349:stack/amplify-echosign-staging-220811/8e71c900-3d4a-11ee-baeb-12f46cd57229",
-      "AmplifyAppId": "d2y6t8g600884f"
+      "AmplifyAppId": "d2y6t8g600884f",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-echosign-staging-220811-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "echosign": {}
+      },
+      "function": {
+        "echosignb519faa0": {
+          "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
+          "s3Key": "amplify-builds/echosignb519faa0-5a6834627579636c3932-build.zip"
+        }
+      },
+      "storage": {
+        "dynamoEchosign": {},
+        "s3echosignstorage8a021856": {}
+      }
     }
   }
 }

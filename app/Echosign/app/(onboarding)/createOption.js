@@ -58,7 +58,7 @@ export default function sinzee() {
                 <BtnWhite title="Back" onPress={()=>router.back()} paddingHorizontal={40}  />
             </View>
             <View className="flex justify-center ">
-                <BtnGreen title="Next" onPress={()=>router.push('/login')} paddingHorizontal={40} />
+                <BtnGreen title="Next" onPress={()=>router.replace('/signup')} paddingHorizontal={40} />
             </View>
             
         </View>

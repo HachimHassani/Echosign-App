@@ -57,7 +57,7 @@ export default function start() {
              <BtnGreen title="Get Started" onPress={()=>router.push('/getStarted')} paddingHorizontal={105} />
         </View>
         <View className="flex flex-row justify-center mb-4">
-             <BtnWhite title="I already have an account" onPress={()=>router.push('/login')} paddingHorizontal={47}  />
+             <BtnWhite title="I already have an account" onPress={()=>router.push('/mainPage')} paddingHorizontal={47}  />
         </View>
        </View>
     

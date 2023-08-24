@@ -23,16 +23,14 @@ export default function Chat() {
   const user = useUser(); // this is the user object from cognito
 
   console.log(params.user);
-  const apiName = 'messaging';
+  const apiName = 'echosignapi';
   const path = '/msgs';
   const myInit = {
     headers: {
       Authorization: `Bearer ${user.signInUserSession.accessToken.jwtT}`,
     }, // OPTIONAL
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {
-      name: 'param' // OPTIONAL
-    }
+    
   };
 
 
@@ -50,15 +48,36 @@ export default function Chat() {
     const fetchMessages = async () => {
       try {
         // Make a REST API request to fetch messages
-        API.get(apiName, path, myInit)
+        // API.get(apiName, path, myInit)
+        // .then((response) => {
+        //   console.log('succes',response);
+        // })
+        // .catch((error) => {
+        //   console.log('error', error);
+        // });
+        async function postData() {
+          const apiName = 'echosignapi';
+          const path = '/msgs';
+          const myInit = {
+            headers: {
+              Authorization: `Bearer ${(await Auth.currentSession())
+                .getIdToken()
+                .getJwtToken()}`
+            }
+          };
+        
+          API.get(apiName, path, myInit)
         .then((response) => {
-          // Add your code here
+          console.log('succes',response);
         })
         .catch((error) => {
           console.log('error', error);
+          console.log(myInit);
         });
-
-        const response = await fetch('YOUR_REST_API_ENDPOINT/messages', {
+        }
+        
+        postData();
+        const response = await fetch('YOUR_REST_APIENDPOINT/messages', {
           method: 'GET',
           
         });

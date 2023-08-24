@@ -17,14 +17,21 @@
         "echosign": {}
       },
       "function": {
-        "echosignb519faa0": {
+        "echosignmsgs": {
           "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
-          "s3Key": "amplify-builds/echosignb519faa0-5a6834627579636c3932-build.zip"
+          "s3Key": "amplify-builds/echosignmsgs-79477436346764792b74-build.zip"
+        },
+        "echosignUsers": {
+          "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
+          "s3Key": "amplify-builds/echosignUsers-41723432466777356735-build.zip"
         }
       },
       "storage": {
         "dynamoEchosign": {},
         "s3echosignstorage8a021856": {}
+      },
+      "api": {
+        "echosignapi": {}
       }
     }
   }

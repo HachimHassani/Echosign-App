@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Image ,Text,SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import Svg, { Path } from "react-native-svg";
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
 import BtnGreen from '../components/BtnGreen.js';
@@ -56,7 +56,7 @@ get along with the deaf-mute community</Text>
         </View>
         <View className="flex flex-col h-[30%]">
           <View className="flex flex-row justify-center ">
-              <BtnGreen title="Get Started" onPress={handleButtonPress} paddingHorizontal={105} />
+              <BtnGreen title="Get Started" onPress={()=>router.push('/sinzee')} paddingHorizontal={105} />
           </View>
         </View>
 

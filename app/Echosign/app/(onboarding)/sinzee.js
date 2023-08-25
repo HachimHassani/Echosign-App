@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 
 import BtnGreen from '../components/BtnGreen.js';
 import BtnWhite from '../components/BtnWhite.js';
+import { router } from 'expo-router';
 
 
 export default function sinzee() {
@@ -51,10 +52,10 @@ export default function sinzee() {
 
         <View className="flex flex-row h-[15%] space-x-[10%] justify-center items-center">
             <View className="flex justify-center ">
-                <BtnWhite title="Back" onPress={handleButtonPress} paddingHorizontal={40}  />
+                <BtnWhite title="Back" onPress={()=>router.back()} paddingHorizontal={40}  />
             </View>
             <View className="flex justify-center ">
-                <BtnGreen title="Next" onPress={handleButtonPress} paddingHorizontal={40} />
+                <BtnGreen title="Next" onPress={()=>router.push('/languages')} paddingHorizontal={40} />
             </View>
             
         </View>

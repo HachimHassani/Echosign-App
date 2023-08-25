@@ -4,6 +4,7 @@ import Svg, { Path } from "react-native-svg";
 import Styles from "app/GlobalStyles.js" ;
 import BtnGreen from '../components/BtnGreen.js';
 import BtnWhite from '../components/BtnWhite.js';
+import { router } from 'expo-router';
 
 
 
@@ -53,10 +54,10 @@ export default function start() {
 
        <View className="flex flex-col h-[24%] justify-center ">
         <View className="flex flex-row justify-center mb-4">
-             <BtnGreen title="Get Started" onPress={handleButtonPress} paddingHorizontal={105} />
+             <BtnGreen title="Get Started" onPress={()=>router.push('/getStarted')} paddingHorizontal={105} />
         </View>
         <View className="flex flex-row justify-center mb-4">
-             <BtnWhite title="I already have an account" onPress={handleButtonPress} paddingHorizontal={47}  />
+             <BtnWhite title="I already have an account" onPress={()=>router.push('/login')} paddingHorizontal={47}  />
         </View>
        </View>
     

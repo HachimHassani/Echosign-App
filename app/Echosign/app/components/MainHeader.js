@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: 18,
-    fontWeight: 900,
+    fontWeight: 'bold',
     opacity:0.6,
   },
   userName: {

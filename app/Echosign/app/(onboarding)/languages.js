@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Image ,Text,SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import Svg, { Path } from "react-native-svg";
+import { StatusBar } from 'expo-status-bar';
 
 import BtnGreen from '../components/BtnGreen.js';
 import BtnWhite from '../components/BtnWhite.js';
@@ -34,12 +35,12 @@ export default function waiting() {
       </View>
 
       <View className="flex w-full h-[87%] rounded-t-[30] justify-center items-center bg-white ">
-        <View className="flex h-[25%] justify-center">
+        <View className="flex h-[30%] justify-center">
             <Text className="text-black text-xl opacity-60 font-medium leading-loose mb-4 px-7">Which sign language do you want to learn</Text>
             <Text className="px-7  text-black text-md opacity-60 ">Chose up the sign language to learn ...</Text>
         </View>
 
-        <View className="container h-[60%] justify-center  items-center">
+        <View className="container h-[55%] justify-center  items-center ">
           <ChoiceList />
         </View>
 

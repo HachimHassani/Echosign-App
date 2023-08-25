@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "Translation",
+    "description": "Translate using Hands ...",
+    "backgroundColor": "#1AA6B7"
+  },
+  {
+    "id": 2,
+    "title": "Dictionnary",
+    "description": "empower your vocab...",
+    "backgroundColor": "#54BD95"
+  },
+  {
+    "id": 3,
+    "title": "Connexion",
+    "description": "Get connected    ...",
+    "backgroundColor": "#9747FF"
+  },
+  {
+    "id": 4,
+    "title": "Practise",
+    "description": "practie your skills ...",
+    "backgroundColor": "#4361FF"
+  },
+  {
+    "id": 5,
+    "title": "Alphabets",
+    "description": "learn the alphabets ...",
+    "backgroundColor": "#FA8920"
+  },{
+    "id": 6,
+    "title": "Animals",
+    "description": "Learn Animals ...",
+    "backgroundColor": "#FA8920"
+  },{
+    "id": 7,
+    "title": "Numbers",
+    "description": "Learn numbers ...",
+    "backgroundColor": "#FA8920"
+  },{
+    "id": 8,
+    "title": "Colors",
+    "description": "learn Colors ...",
+    "backgroundColor": "#FA8920"
+  }
+]

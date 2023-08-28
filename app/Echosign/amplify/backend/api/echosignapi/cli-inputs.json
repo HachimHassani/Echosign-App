@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "paths": {
+    "/msgs": {
+      "name": "/msgs",
+      "lambdaFunction": "echosignmsgs",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/user-search": {
+      "name": "/user-search",
+      "lambdaFunction": "echosignUsers",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/friends": {
+      "name": "/friends",
+      "lambdaFunction": "echosignUsers",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}

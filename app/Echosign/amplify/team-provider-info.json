@@ -23,7 +23,7 @@
         },
         "echosignUsers": {
           "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
-          "s3Key": "amplify-builds/echosignUsers-41723432466777356735-build.zip"
+          "s3Key": "amplify-builds/echosignUsers-3451386b4b7446687979-build.zip"
         }
       },
       "storage": {

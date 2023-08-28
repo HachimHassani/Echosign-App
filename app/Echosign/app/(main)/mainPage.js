@@ -3,12 +3,39 @@ import React, { useState, useEffect } from 'react';
 import ButtomBar from '../components/ButtomBar';
 import MainHeader from '../components/MainHeader';
 import {router} from 'expo-router';
-import { Auth } from 'aws-amplify';
+import { Auth, API } from 'aws-amplify';
 import { useUser } from '../../context/auth';
 
 export default function mainPage() {
   const user = useUser(); // this is the user object from cognito
-  const [isLoading, setIsLoading] = useState(true); // Added loading state
+  console.log(user);
+
+  async function postData() {
+  const apiName = 'echosignapi';
+  const path = '/user-search';
+  const myInit = {
+    headers: {
+      Authorization: `Bearer ${(await Auth.currentSession())
+        .getIdToken()
+        .getJwtToken()}`
+    }
+  };
+  
+  API.get(apiName, path, myInit)
+  .then((response) => {
+    console.log('succes',response);
+  })
+  .catch((error) => {
+    console.log('error', error);
+    console.log(myInit);
+  });
+  }
+  
+  postData();
+
+
+ 
+  
 
   const onSignOut = async () => {
     try {
@@ -17,6 +44,17 @@ export default function mainPage() {
       console.log('Error logging out: ', error);
     }
   };
+
+  const fetchUser = async () => {
+ 
+      API.get(apiName, path, myInit).then((response) => {
+        console.log('succes',response);
+      })
+      .catch((error) => {
+        console.log('error', error);
+        console.log(myInit);
+      });
+  }
 
   
 
@@ -39,6 +77,9 @@ export default function mainPage() {
         ) : (
           <Text>Please sign in to access chats.</Text>
         )}
+        <TouchableOpacity className="bg-green-500" onPress={()=>{router.push('/searchusers')}}>
+          <Text>Fetch User</Text>
+        </TouchableOpacity>
       </ScrollView>
       <View className="h-[10%] mx-[6%]">
         <ButtomBar />

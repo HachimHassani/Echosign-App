@@ -71,7 +71,9 @@ export default function MainPage() {
             get connected ...
           </Text>
         </View>
-        <LongCard />
+        <View className="justify-center items-center">
+          <LongCard />
+        </View>
 
         <View className="m-[5%] flex-row justify-between items-center">
           <Text className="text-black text-xl font-bold opacity-90 text-left">
@@ -87,11 +89,9 @@ export default function MainPage() {
         </View>
 
         <View className="m-[5%]"></View>
-
-
       </ScrollView>
 
-      <View className="h-[10%] mx-[6%]">
+      <View className="h-[10%] mx-[6%] justify-center ">
         <ButtomBar />
       </View>
     </View>

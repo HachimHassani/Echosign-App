@@ -19,4 +19,6 @@ export { default as img7 } from "../assets/numberss.png";
 
 export { default as img8 } from "../assets/colors.png";
 
+export { default as img9 } from "../assets/Mascot7.png";
+
 

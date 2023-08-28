@@ -43,5 +43,10 @@
     "title": "Colors",
     "description": "learn Colors ...",
     "backgroundColor": "#FA8920"
+  },{
+    "id": 9,
+    "title": "More soon",
+    "description": "we working on it ...",
+    "backgroundColor": "#FA8920"
   }
 ]

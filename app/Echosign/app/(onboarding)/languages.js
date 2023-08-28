@@ -3,10 +3,6 @@ import React from 'react';
 import { View, Image ,Text,SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import Svg, { Path } from "react-native-svg";
 import { StatusBar } from 'expo-status-bar';
-<<<<<<< HEAD
-
-=======
->>>>>>> 9d275a845bc0b963a97ce90bb819d81386111d19
 import BtnGreen from '../components/BtnGreen.js';
 import BtnWhite from '../components/BtnWhite.js';
 import ChoiceList from '../components/ChoiceList.js';

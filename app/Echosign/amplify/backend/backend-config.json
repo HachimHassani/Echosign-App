@@ -67,6 +67,15 @@
           ],
           "category": "auth",
           "resourceName": "echosign"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "dynamoEchosign"
         }
       ],
       "providerPlugin": "awscloudformation",

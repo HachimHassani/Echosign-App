@@ -11,17 +11,26 @@ See the License for the specific language governing permissions and limitations 
 	AUTH_ECHOSIGN_USERPOOLID
 	ENV
 	REGION
+	STORAGE_DYNAMOECHOSIGN_ARN
+	STORAGE_DYNAMOECHOSIGN_NAME
+	STORAGE_DYNAMOECHOSIGN_STREAMARN
 Amplify Params - DO NOT EDIT */
 
 const express = require('express')
 const bodyParser = require('body-parser')
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
-const AWS = require('aws-sdk'); // Import the AWS SDK
 
+const {CognitoIdentityProviderClient, ListUsersCommand} = require('@aws-sdk/client-cognito-identity-provider'); // Import the AWS SDK
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DeleteCommand, DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand,  } = require('@aws-sdk/lib-dynamodb');
+
+const ddbClient = new DynamoDBClient({ region: process.env.TABLE_REGION });
+const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
 // Configure AWS Cognito
-const cognito = new AWS.CognitoIdentityServiceProvider({
+const cognito = new CognitoIdentityProviderClient({
   region: process.env.REGION, // Use the region from your Amplify Params
 });
+
 // declare a new express app
 const app = express()
 app.use(bodyParser.json())
@@ -48,8 +57,8 @@ app.get('/user-search',async function(req, res) {
       UserPoolId: process.env.AUTH_ECHOSIGN_USERPOOLID, // Use your Cognito User Pool ID
       Filter: `name = "${query}"`, // Search by username
     };
-
-    const result = await cognito.listUsers(params).promise();
+    const command = new ListUsersCommand(params);
+    const result = await cognito.send(command);
 
     if (result.Users.length === 0) {
       res.status(404).json({ error: 'User not found', query: req.url, body: req.body, query: req.params.query });

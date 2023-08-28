@@ -7,6 +7,14 @@
         "update",
         "delete"
       ]
+    },
+    "storage": {
+      "dynamoEchosign": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
     }
   },
   "lambdaLayers": []

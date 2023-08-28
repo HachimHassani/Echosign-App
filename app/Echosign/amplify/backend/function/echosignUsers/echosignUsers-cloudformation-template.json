@@ -19,6 +19,18 @@
     "authechosignUserPoolId": {
       "Type": "String",
       "Default": "authechosignUserPoolId"
+    },
+    "storagedynamoEchosignName": {
+      "Type": "String",
+      "Default": "storagedynamoEchosignName"
+    },
+    "storagedynamoEchosignArn": {
+      "Type": "String",
+      "Default": "storagedynamoEchosignArn"
+    },
+    "storagedynamoEchosignStreamArn": {
+      "Type": "String",
+      "Default": "storagedynamoEchosignStreamArn"
     }
   },
   "Conditions": {
@@ -76,6 +88,15 @@
             },
             "AUTH_ECHOSIGN_USERPOOLID": {
               "Ref": "authechosignUserPoolId"
+            },
+            "STORAGE_DYNAMOECHOSIGN_NAME": {
+              "Ref": "storagedynamoEchosignName"
+            },
+            "STORAGE_DYNAMOECHOSIGN_ARN": {
+              "Ref": "storagedynamoEchosignArn"
+            },
+            "STORAGE_DYNAMOECHOSIGN_STREAMARN": {
+              "Ref": "storagedynamoEchosignStreamArn"
             }
           }
         },
@@ -289,6 +310,43 @@
                       {
                         "Ref": "authechosignUserPoolId"
                       }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PartiQLInsert",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:PartiQLSelect",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:PartiQLUpdate",
+                "dynamodb:Delete*",
+                "dynamodb:PartiQLDelete"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagedynamoEchosignArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagedynamoEchosignArn"
+                      },
+                      "index/*"
                     ]
                   ]
                 }

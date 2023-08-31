@@ -1,0 +1,39 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-echosign-staging-220811-authRole",
+      "UnauthRoleArn": "arn:aws:iam::476457335349:role/amplify-echosign-staging-220811-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::476457335349:role/amplify-echosign-staging-220811-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-echosign-staging-220811-deployment",
+      "UnauthRoleName": "amplify-echosign-staging-220811-unauthRole",
+      "StackName": "amplify-echosign-staging-220811",
+      "StackId": "arn:aws:cloudformation:us-east-1:476457335349:stack/amplify-echosign-staging-220811/8e71c900-3d4a-11ee-baeb-12f46cd57229",
+      "AmplifyAppId": "d2y6t8g600884f",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-echosign-staging-220811-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "echosign": {}
+      },
+      "function": {
+        "echosignUsers": {
+          "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
+          "s3Key": "amplify-builds/echosignUsers-51495a5a66653138522b-build.zip"
+        },
+        "echomsgs": {
+          "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
+          "s3Key": "amplify-builds/echomsgs-5568307a436454696168-build.zip"
+        }
+      },
+      "storage": {
+        "dynanofriends": {},
+        "s3echosignstorage8a021856": {},
+        "echomessages": {}
+      },
+      "api": {
+        "apiEchsign": {}
+      }
+    }
+  }
+}

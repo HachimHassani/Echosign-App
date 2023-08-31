@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "auth": {
+      "echosign": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "storage": {
+      "dynanofriends": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

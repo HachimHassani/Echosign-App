@@ -9,6 +9,54 @@ import LongCard from "../components/LongCard";
 import cardsData from "../data/data.json";
 
 export default function MainPage() {
+  const user = useUser(); // this is the user object from cognito
+  console.log(user);
+
+  async function postData() {
+  const apiName = 'apiEchsign';
+  const path = '/user-search';
+  const myInit = {
+    headers: {
+      Authorization: `Bearer ${(await Auth.currentSession())
+        .getIdToken()
+        .getJwtToken()}`
+    }
+  };
+  
+  API.get(apiName, path, myInit)
+  .then((response) => {
+    console.log('succes',response);
+  })
+  .catch((error) => {
+    console.log('error', error);
+    console.log(myInit);
+  });
+  }
+  
+  postData();
+
+
+ 
+  
+
+  const onSignOut = async () => {
+    try {
+      await Auth.signOut();
+    } catch (error) {
+      console.log('Error logging out: ', error);
+    }
+  };
+
+  const fetchUser = async () => {
+ 
+      API.get(apiName, path, myInit).then((response) => {
+        console.log('succes',response);
+      })
+      .catch((error) => {
+        console.log('error', error);
+        console.log(myInit);
+      });
+  }
   const userName = "Akram talibi";
   const selectedCardData1 = cardsData.find((card) => card.id === 1);
   const selectedCardData2 = cardsData.find((card) => card.id === 2);
@@ -92,6 +140,7 @@ export default function MainPage() {
       </ScrollView>
 
       <View className="h-[10%] mx-[6%] justify-center ">
+
         <ButtomBar />
       </View>
     </View>

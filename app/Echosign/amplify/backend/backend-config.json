@@ -1,6 +1,6 @@
 {
   "api": {
-    "echosignapi": {
+    "apiEchsign": {
       "dependsOn": [
         {
           "attributes": [
@@ -8,7 +8,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "echosignmsgs"
+          "resourceName": "echosignUsers"
         },
         {
           "attributes": [
@@ -16,7 +16,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "echosignUsers"
+          "resourceName": "echomsgs"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -58,6 +58,43 @@
     }
   },
   "function": {
+    "echomsgs": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "echomessages"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "dynanofriends"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "echomessages"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "echosignUsers": {
       "build": true,
       "dependsOn": [
@@ -75,26 +112,7 @@
             "StreamArn"
           ],
           "category": "storage",
-          "resourceName": "dynamoEchosign"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "echosignmsgs": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributeEnvMap": {
-            "Arn": "TABLE_ARN",
-            "Name": "TABLE_NAME"
-          },
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "storage",
-          "resourceName": "dynamoEchosign"
+          "resourceName": "dynanofriends"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -102,6 +120,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_echomsgs_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "echomsgs"
+        }
+      ]
+    },
+    "AMPLIFY_function_echomsgs_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "echomsgs"
+        }
+      ]
+    },
     "AMPLIFY_function_echosignUsers_deploymentBucketName": {
       "usedBy": [
         {
@@ -117,26 +151,14 @@
           "resourceName": "echosignUsers"
         }
       ]
-    },
-    "AMPLIFY_function_echosignmsgs_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "echosignmsgs"
-        }
-      ]
-    },
-    "AMPLIFY_function_echosignmsgs_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "echosignmsgs"
-        }
-      ]
     }
   },
   "storage": {
-    "dynamoEchosign": {
+    "dynanofriends": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "echomessages": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     },

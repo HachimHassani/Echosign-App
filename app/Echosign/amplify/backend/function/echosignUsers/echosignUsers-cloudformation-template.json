@@ -20,17 +20,17 @@
       "Type": "String",
       "Default": "authechosignUserPoolId"
     },
-    "storagedynamoEchosignName": {
+    "storagedynanofriendsName": {
       "Type": "String",
-      "Default": "storagedynamoEchosignName"
+      "Default": "storagedynanofriendsName"
     },
-    "storagedynamoEchosignArn": {
+    "storagedynanofriendsArn": {
       "Type": "String",
-      "Default": "storagedynamoEchosignArn"
+      "Default": "storagedynanofriendsArn"
     },
-    "storagedynamoEchosignStreamArn": {
+    "storagedynanofriendsStreamArn": {
       "Type": "String",
-      "Default": "storagedynamoEchosignStreamArn"
+      "Default": "storagedynanofriendsStreamArn"
     }
   },
   "Conditions": {
@@ -89,14 +89,14 @@
             "AUTH_ECHOSIGN_USERPOOLID": {
               "Ref": "authechosignUserPoolId"
             },
-            "STORAGE_DYNAMOECHOSIGN_NAME": {
-              "Ref": "storagedynamoEchosignName"
+            "STORAGE_DYNANOFRIENDS_NAME": {
+              "Ref": "storagedynanofriendsName"
             },
-            "STORAGE_DYNAMOECHOSIGN_ARN": {
-              "Ref": "storagedynamoEchosignArn"
+            "STORAGE_DYNANOFRIENDS_ARN": {
+              "Ref": "storagedynanofriendsArn"
             },
-            "STORAGE_DYNAMOECHOSIGN_STREAMARN": {
-              "Ref": "storagedynamoEchosignStreamArn"
+            "STORAGE_DYNANOFRIENDS_STREAMARN": {
+              "Ref": "storagedynanofriendsStreamArn"
             }
           }
         },
@@ -337,14 +337,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storagedynamoEchosignArn"
+                  "Ref": "storagedynanofriendsArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storagedynamoEchosignArn"
+                        "Ref": "storagedynanofriendsArn"
                       },
                       "index/*"
                     ]

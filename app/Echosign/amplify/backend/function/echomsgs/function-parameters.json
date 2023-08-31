@@ -1,15 +1,13 @@
 {
   "permissions": {
-    "auth": {
-      "echosign": [
+    "storage": {
+      "dynanofriends": [
         "create",
         "read",
         "update",
         "delete"
-      ]
-    },
-    "storage": {
-      "dynanofriends": [
+      ],
+      "echomessages": [
         "create",
         "read",
         "update",

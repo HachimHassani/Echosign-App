@@ -11,7 +11,7 @@ export default function mainPage() {
   console.log(user);
 
   async function postData() {
-  const apiName = 'echosignapi';
+  const apiName = 'apiEchsign';
   const path = '/user-search';
   const myInit = {
     headers: {
@@ -79,6 +79,12 @@ export default function mainPage() {
         )}
         <TouchableOpacity className="bg-green-500" onPress={()=>{router.push('/searchusers')}}>
           <Text>Fetch User</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className="bg-green-500" onPress={()=>{router.push('/friendlist')}}>
+          <Text>Friend List</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className="bg-green-500" onPress={()=>{router.push('/friendrequests')}}>
+          <Text>Friend Requests</Text>
         </TouchableOpacity>
       </ScrollView>
       <View className="h-[10%] mx-[6%]">

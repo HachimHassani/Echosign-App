@@ -1,6 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "echosignapi": {
+    "apiEchsign": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
@@ -18,14 +18,14 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "echosignUsers": {
+    "echomsgs": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
-    "echosignmsgs": {
+    "echosignUsers": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
@@ -34,12 +34,24 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "dynamoEchosign": {
+    "dynanofriends": {
       "Arn": "string",
       "Name": "string",
       "PartitionKeyName": "string",
       "PartitionKeyType": "string",
       "Region": "string",
+      "SortKeyName": "string",
+      "SortKeyType": "string",
+      "StreamArn": "string"
+    },
+    "echomessages": {
+      "Arn": "string",
+      "Name": "string",
+      "PartitionKeyName": "string",
+      "PartitionKeyType": "string",
+      "Region": "string",
+      "SortKeyName": "string",
+      "SortKeyType": "string",
       "StreamArn": "string"
     },
     "s3echosignstorage8a021856": {

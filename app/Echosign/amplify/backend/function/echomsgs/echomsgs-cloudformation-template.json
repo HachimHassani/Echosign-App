@@ -16,13 +16,29 @@
     "s3Key": {
       "Type": "String"
     },
-    "storagedynamoEchosignName": {
+    "storageechomessagesName": {
       "Type": "String",
-      "Default": "storagedynamoEchosignName"
+      "Default": "storageechomessagesName"
     },
-    "storagedynamoEchosignArn": {
+    "storageechomessagesArn": {
       "Type": "String",
-      "Default": "storagedynamoEchosignArn"
+      "Default": "storageechomessagesArn"
+    },
+    "storagedynanofriendsName": {
+      "Type": "String",
+      "Default": "storagedynanofriendsName"
+    },
+    "storagedynanofriendsArn": {
+      "Type": "String",
+      "Default": "storagedynanofriendsArn"
+    },
+    "storagedynanofriendsStreamArn": {
+      "Type": "String",
+      "Default": "storagedynanofriendsStreamArn"
+    },
+    "storageechomessagesStreamArn": {
+      "Type": "String",
+      "Default": "storageechomessagesStreamArn"
     }
   },
   "Conditions": {
@@ -55,12 +71,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "echosignmsgs",
+            "echomsgs",
             {
               "Fn::Join": [
                 "",
                 [
-                  "echosignmsgs",
+                  "echomsgs",
                   "-",
                   {
                     "Ref": "env"
@@ -77,6 +93,24 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "STORAGE_DYNANOFRIENDS_NAME": {
+              "Ref": "storagedynanofriendsName"
+            },
+            "STORAGE_DYNANOFRIENDS_ARN": {
+              "Ref": "storagedynanofriendsArn"
+            },
+            "STORAGE_DYNANOFRIENDS_STREAMARN": {
+              "Ref": "storagedynanofriendsStreamArn"
+            },
+            "STORAGE_ECHOMESSAGES_NAME": {
+              "Ref": "storageechomessagesName"
+            },
+            "STORAGE_ECHOMESSAGES_ARN": {
+              "Ref": "storageechomessagesArn"
+            },
+            "STORAGE_ECHOMESSAGES_STREAMARN": {
+              "Ref": "storageechomessagesStreamArn"
             }
           }
         },
@@ -97,12 +131,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "echosignLambdaRole51e3c850",
+            "echosignLambdaRole1190a53c",
             {
               "Fn::Join": [
                 "",
                 [
-                  "echosignLambdaRole51e3c850",
+                  "echosignLambdaRole1190a53c",
                   "-",
                   {
                     "Ref": "env"
@@ -182,14 +216,107 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storagedynamoEchosignArn"
+                  "Ref": "storageechomessagesArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storagedynamoEchosignArn"
+                        "Ref": "storageechomessagesArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PartiQLInsert",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:PartiQLSelect",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:PartiQLUpdate",
+                "dynamodb:Delete*",
+                "dynamodb:PartiQLDelete"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagedynanofriendsArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagedynanofriendsArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PartiQLInsert",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:PartiQLSelect",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:PartiQLUpdate",
+                "dynamodb:Delete*",
+                "dynamodb:PartiQLDelete"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storageechomessagesArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storageechomessagesArn"
                       },
                       "index/*"
                     ]

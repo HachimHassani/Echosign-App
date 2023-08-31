@@ -6,7 +6,16 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
+/* Amplify Params - DO NOT EDIT
+	ENV
+	REGION
+	STORAGE_DYNANOFRIENDS_ARN
+	STORAGE_DYNANOFRIENDS_NAME
+	STORAGE_DYNANOFRIENDS_STREAMARN
+	STORAGE_ECHOMESSAGES_ARN
+	STORAGE_ECHOMESSAGES_NAME
+	STORAGE_ECHOMESSAGES_STREAMARN
+Amplify Params - DO NOT EDIT */
 
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DeleteCommand, DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand,  } = require('@aws-sdk/lib-dynamodb');
@@ -17,16 +26,16 @@ const express = require('express')
 const ddbClient = new DynamoDBClient({ region: process.env.TABLE_REGION });
 const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
 
-let tableName = "messages";
+let tableName = "echomessages";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + '-' + process.env.ENV;
 }
 
 const userIdPresent = false; // TODO: update in case is required to use that definition
-const partitionKeyName = "id";
-const partitionKeyType = "N";
-const sortKeyName = "";
-const sortKeyType = "";
+const partitionKeyName = "chat_id";
+const partitionKeyType = "S";
+const sortKeyName = "msg_id";
+const sortKeyType = "S";
 const hasSortKey = sortKeyName !== "";
 const path = "/msgs";
 const UNAUTH = 'UNAUTH';
@@ -55,26 +64,14 @@ const convertUrlType = (param, type) => {
   }
 }
 
+// Function to generate a unique messageId (you can implement your own logic)
+function generateUniqueMessageId() {
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 12)}`;
+}
+
 /********************************
  * HTTP Get method for list objects *
  ********************************/
-app.get(path, async function(req, res) {
-  const condition = {}
-  condition[partitionKeyName] = {
-    ComparisonOperator: 'EQ'
-  }
-  return res.json({error: 'Please provide a valid id'});
-  if (userIdPresent && req.apiGateway) {
-    condition[partitionKeyName]['AttributeValueList'] = [req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH ];
-  } else {
-    try {
-      condition[partitionKeyName]['AttributeValueList'] = [ convertUrlType(req.params[partitionKeyName], partitionKeyType) ];
-    } catch(err) {
-      res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
-    } 
-  }
-});
 
 app.get(path + hashKeyPath, async function(req, res) {
   const condition = {}
@@ -184,7 +181,7 @@ app.post(path, async function(req, res) {
   if (userIdPresent) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
-
+  req.body['msg_id'] = generateUniqueMessageId();
   let putItemParams = {
     TableName: tableName,
     Item: req.body

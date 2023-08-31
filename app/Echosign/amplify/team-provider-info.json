@@ -17,21 +17,22 @@
         "echosign": {}
       },
       "function": {
-        "echosignmsgs": {
-          "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
-          "s3Key": "amplify-builds/echosignmsgs-6f455a614e6a55497659-build.zip"
-        },
         "echosignUsers": {
           "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
-          "s3Key": "amplify-builds/echosignUsers-4e564768506c4d4a4376-build.zip"
+          "s3Key": "amplify-builds/echosignUsers-51495a5a66653138522b-build.zip"
+        },
+        "echomsgs": {
+          "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
+          "s3Key": "amplify-builds/echomsgs-5568307a436454696168-build.zip"
         }
       },
       "storage": {
-        "dynamoEchosign": {},
-        "s3echosignstorage8a021856": {}
+        "dynanofriends": {},
+        "s3echosignstorage8a021856": {},
+        "echomessages": {}
       },
       "api": {
-        "echosignapi": {}
+        "apiEchsign": {}
       }
     }
   }

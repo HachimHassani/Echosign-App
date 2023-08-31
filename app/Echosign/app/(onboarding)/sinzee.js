@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Image ,Text,SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import Svg, { Path } from "react-native-svg";
+import { StatusBar } from 'expo-status-bar';
 
 import BtnGreen from '../components/BtnGreen.js';
 import BtnWhite from '../components/BtnWhite.js';
@@ -17,6 +18,7 @@ export default function sinzee() {
 
   return (
     <View className="flex-1 items-center bg-cyan-400">
+      <StatusBar hidden />
 
       <View className="absolute mt-[0%] mr-[0%]">
     

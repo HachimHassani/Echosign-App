@@ -80,7 +80,7 @@ const FriendRequestsScreen = () => {
       <Text>Friend Requests</Text>
       <FlatList
         data={requests}
-        keyExtractor={(item) => item.FRIEND}
+        keyExtractor={(item) => item.USER}
         renderItem={({ item }) => (
           <FriendRequestItem
             request={item}

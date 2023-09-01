@@ -67,6 +67,29 @@ const convertUrlType = (param, type) => {
 function generateChatId(user1Id, user2Id) {
   return `${user1Id}-${user2Id}`;
 }
+// Function to retrieve user attributes from Cognito
+async function getUserAttributes(username) {
+  const params = {
+    UserPoolId: process.env.AUTH_ECHOSIGN_USERPOOLID,
+    Username: username,
+  };
+
+  const command = new ListUsersCommand(params);
+  const result = await cognito.send(command);
+
+  if (result.Users.length === 0) {
+    throw new Error('User not found in Cognito');
+  }
+
+  const user = result.Users[0];
+  const attributes = {};
+
+  for (const attr of user.Attributes) {
+    attributes[attr.Name] = attr.Value;
+  }
+
+  return attributes;
+}
 
 /**********************
  * Example get method *
@@ -152,12 +175,19 @@ app.post('/users/request', async function(req, res) {
   try {
     
     const { sender, receiver } = req.body;
+
+    // Retrieve user attributes (names) from Cognito for sender and receiver
+    const senderAttributes = await getUserAttributes(sender);
+    const receiverAttributes = await getUserAttributes(receiver);
+
     // Save the friend request to DynamoDB
     const params = {
       TableName: process.env.STORAGE_DYNANOFRIENDS_NAME, // Use your DynamoDB table name
       Item: {
         USER : `${sender}`,
         FRIEND : `${receiver}`,
+        SenderName: senderAttributes.name,
+        ReceiverName: receiverAttributes.name,
         Status: 'pending'
       },
     };
@@ -298,7 +328,7 @@ app.get(path + '/friends'+ hashKeyPath, async function(req, res) {
 
   condition['Status'] = {
     ComparisonOperator: 'EQ',
-    AttributeValueList: ['pending']
+    AttributeValueList: ['accepted']
   };
 
   if (userIdPresent && req.apiGateway) {

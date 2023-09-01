@@ -1,8 +1,7 @@
-// App.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, StyleSheet , TouchableOpacity} from 'react-native';
+import { View, Text, TextInput, Button, FlatList, StyleSheet , TouchableOpacity, Image } from 'react-native';
 import { Auth, API } from 'aws-amplify';    
-import { useUser } from '../../context/auth';
+import { useUser } from '../../../context/auth';
 
 const UserSearchScreen = () => {
   const user =  useUser(); // this is the user object from cognito
@@ -23,8 +22,7 @@ const UserSearchScreen = () => {
           return response;
         })
         .catch((error) => {
-          console.log('error', error);
-          console.log(myInit,path+'?query='+query);
+          setUsers([]);
         });
         }
       async function sendFriendRequest(senderUsername, receiverUsername) {
@@ -73,31 +71,42 @@ const UserSearchScreen = () => {
 
   const renderUserCard = ({ item }) => (
     <View style={styles.userCard}>
-      <Text>{item.name}</Text>
-      <Text>{item.email}</Text>
-      <TouchableOpacity
-  style={styles.sendRequestButton}
-  onPress={() => sendFriendRequest( user.username,item.username)} // Assuming user.username represents the current user's Cognito username
->
-  <Text>Send Friend Request</Text>
-</TouchableOpacity>
-      {/* Add more user info as needed */}
+      <Image
+        style={styles.avatar}
+        source={{ uri: 'https://i.pravatar.cc/300' }} // Replace with your avatar image URL
+      />
+      <View style={styles.userInfo}>
+        <Text style={styles.userName}>{item.name}</Text>
+        <Text style={styles.userEmail}>{item.email}</Text>
+        <TouchableOpacity
+          style={styles.sendRequestButton}
+          onPress={() => sendFriendRequest(user.username, item.username)}
+        >
+          <Text style={styles.sendRequestButtonText}>Send Friend Request</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>User Search</Text>
+      </View>
       <TextInput
         style={styles.searchInput}
         placeholder="Search users"
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
-      <Button title="Search" onPress={handleSearch} />
+      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+        <Text style={styles.searchButtonText}>Search</Text>
+      </TouchableOpacity>
       <FlatList
         data={users}
-        keyExtractor={item => item.username.toString()}
+        keyExtractor={(item) => item.username.toString()}
         renderItem={renderUserCard}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
     </View>
   );
@@ -107,29 +116,73 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#fff', // Background color for the entire screen
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
   searchInput: {
     marginBottom: 8,
-    padding: 8,
+    padding: 12,
     borderWidth: 1,
     borderColor: '#ccc',
+    borderRadius: 8,
+  },
+  searchButton: {
+    backgroundColor: 'blue',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  searchButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
   userCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#f0f0f0',
-    padding: 12,
+    padding: 16,
     marginBottom: 8,
-    borderRadius: 4,
+    borderRadius: 8,
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 12,
+  },
+  userInfo: {
+    flex: 1,
+  },
+  userName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  userEmail: {
+    color: '#666',
   },
   sendRequestButton: {
-    backgroundColor: 'blue', // Customize the button's appearance
-    padding: 8,
-    borderRadius: 4,
+    backgroundColor: 'green', // Customize the button's appearance
+    padding: 12,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 8,
   },
   sendRequestButtonText: {
     color: 'white', // Customize the text color
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#ccc',
+    marginVertical: 8,
   },
 });
 

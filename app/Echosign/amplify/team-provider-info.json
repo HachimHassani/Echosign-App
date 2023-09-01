@@ -19,11 +19,11 @@
       "function": {
         "echosignUsers": {
           "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
-          "s3Key": "amplify-builds/echosignUsers-51495a5a66653138522b-build.zip"
+          "s3Key": "amplify-builds/echosignUsers-3157695461625a347876-build.zip"
         },
         "echomsgs": {
           "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
-          "s3Key": "amplify-builds/echomsgs-5568307a436454696168-build.zip"
+          "s3Key": "amplify-builds/echomsgs-6d793456704773535878-build.zip"
         }
       },
       "storage": {

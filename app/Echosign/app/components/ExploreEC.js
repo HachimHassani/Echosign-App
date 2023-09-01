@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import LogoImage from "../assets/fleche.png";
 
-const ExploreEC = () => {
+const ExploreEC = ({onpress}) => {
   const windowWidth = Dimensions.get("window").width;
 
   return (
@@ -54,7 +54,7 @@ const ExploreEC = () => {
           resizeMode="contain"
         />
       </View>
-      <TouchableOpacity style={styles.buttonContainer}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={()=>onpress()}>
         <View>
           <Text style={styles.buttonText}>Explore the Innovation!</Text>
           <Text style={styles.buttonSubText}>

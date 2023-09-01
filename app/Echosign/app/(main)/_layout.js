@@ -23,6 +23,7 @@ const formFields = {
    }
 
 export default function layout() {
+  console.log('big layout');
   return (
     // Setup the auth context and render our layout inside of it.
     

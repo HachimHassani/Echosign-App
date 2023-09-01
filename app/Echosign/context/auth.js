@@ -5,11 +5,12 @@ const UserContext = createContext();
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
-
+  console.log('user provider');
   useEffect(() => {
     const getUser = async () => {
       try {
         const userData = await Auth.currentAuthenticatedUser();
+        console.log('got user',userData);
         setUser(userData);
       } catch (error) {
         console.log('Error getting user: ', error);

@@ -1,18 +1,25 @@
-// FriendListItem.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const FriendListItem = ({ friend, onPressChat, onPressRemove }) => {
+const FriendListItem = ({ user, friend, onPressChat, onPressRemove }) => {
+  const opposingUserName = friend.USER === user ? friend.SenderName : friend.ReceiverName;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.username}>{friend.username}</Text>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.chatButton} onPress={onPressChat}>
-          <Text style={styles.buttonText}>Chat</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.removeButton} onPress={onPressRemove}>
-          <Text style={styles.buttonText}>Remove</Text>
-        </TouchableOpacity>
+      <Image
+        style={styles.avatar}
+        source={{ uri: 'https://i.pravatar.cc/300' }} // Replace with your avatar image URL
+      />
+      <View style={styles.userInfo}>
+        <Text style={styles.username}>{opposingUserName}</Text>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.chatButton} onPress={onPressChat}>
+            <Text style={styles.buttonText}>Chat</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.removeButton} onPress={onPressRemove}>
+            <Text style={styles.buttonText}>Remove</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -21,15 +28,26 @@ const FriendListItem = ({ friend, onPressChat, onPressRemove }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderColor: '#E1E1E1',
+    backgroundColor: '#FFFFFF', // Background color for the item
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 12,
+  },
+  userInfo: {
+    flex: 1,
   },
   username: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#333', // Text color
   },
   buttonsContainer: {
     flexDirection: 'row',

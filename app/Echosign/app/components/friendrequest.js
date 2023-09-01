@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 const FriendRequestItem = ({ request, onAccept, onReject }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.username}>{request.FRIEND}</Text>
+      <Text style={styles.username}>{request.SenderName}</Text>
       <Text >{request.Status}</Text>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.acceptButton} onPress={onAccept}>

@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native
 import { Auth, API } from 'aws-amplify';
 import FriendListItem from '../../components/friendlistitem';
 import { useUser } from '../../../context/auth';
+import { router } from 'expo-router';
 
 const ContactList = () => {
   const user = useUser();

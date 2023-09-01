@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet , TouchableOpacity, Image } from 'react-native';
 import { Auth, API } from 'aws-amplify';    
 import { useUser } from '../../../context/auth';
+import ToastPopup from '../../components/Toastpopup';
 
 const UserSearchScreen = () => {
+  const [isSuccessVisible, setIsSuccessVisible] = useState(false); // State to control visibility
+  const successMessage = 'Friend request sent successfully'; // Message content
+  const [errorModalVisible, setErrorModalVisible] = useState(false); // State for error modal
+
+
   const user =  useUser(); // this is the user object from cognito
 
     async function postData(query) {
@@ -49,11 +55,14 @@ const UserSearchScreen = () => {
       
           if (response.status === 200) {
             console.log('Friend request sent successfully');
-          } else {
-            console.error('Error sending friend request1:', response);
-          }
+            setIsSuccessVisible(true); // Show the success message
+            setTimeout(() => {
+              setIsSuccessVisible(false); // Hide the success message after a timeout
+            }, 3000); // Adjust the timeout as needed
+          } 
         } catch (error) {
-          console.error('Error sending friend request:', error);
+          setErrorModalVisible(true); // Show the error modal
+
         }
       }
         
@@ -108,6 +117,12 @@ const UserSearchScreen = () => {
         renderItem={renderUserCard}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
+      {isSuccessVisible && (
+        <ToastPopup isVisible={true} type="success" message={successMessage} onClose={() => setIsSuccessVisible(false)} />
+      )}
+      {errorModalVisible && (
+        <ToastPopup isVisible={true} type="error" message={"Error sending friend request. friend request already sent!!"} onClose={() => setErrorModalVisible(false)} />
+      )}
     </View>
   );
 };

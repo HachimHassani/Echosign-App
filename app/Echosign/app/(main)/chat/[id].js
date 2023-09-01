@@ -1,74 +1,98 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { GiftedChat } from 'react-native-gifted-chat';
+import { Auth, API } from 'aws-amplify';
+import { router,useLocalSearchParams } from 'expo-router';
+import { useUser } from '../../../context/auth';
 
-const FriendListItem = ({ user, friend, onPressChat, onPressRemove }) => {
-  const opposingUserName = friend.USER === user ? friend.SenderName : friend.ReceiverName;
+export default function chat() {
+  const { id } = useLocalSearchParams();
+  const [messages, setMessages] = useState([]);
+  const user = useUser(); // Use Auth.useUser() to access the user object
+
+  const apiName = 'apiEchsign'; // Replace with your REST API name
+  const path = '/msgs'; // Replace with your REST API endpoint for messages
+
+  const fetchMessages = async () => {
+    try {
+      const myInit = {
+        headers: {
+          Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
+        },
+      };
+
+      const response = await API.get(apiName, path +'/'+id, myInit);
+
+      if (!response) {
+        throw new Error('Failed to fetch messages');
+      }
+      console.log(response);
+      const messageData = response; // Assuming the data contains your messages
+      const messages = messageData.map((message) => ({
+        _id: message.msg_id,
+        createdAt: new Date(message.createdAt),
+        text: message.text,
+        user: {
+          _id: message.user, // Adjust as needed
+          avatar: 'https://i.pravatar.cc/300',
+        },
+      }));
+      setMessages(messages);
+    } catch (error) {
+      console.log('Error fetching messages: ', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const onSend = useCallback(async (newMessages = []) => {
+    const newMessage = newMessages[0];
+    console.log(newMessage);
+    try {
+      const myInit = {
+        headers: {
+          Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
+        },
+        body: {
+          chat_id: id,
+          text: newMessage.text,
+          user: newMessage.user._id,
+          createdAt: new Date().toISOString(),
+        },
+      };
+
+      const response = await API.post(apiName, path, myInit);
+
+      if (!response) {
+        throw new Error('Failed to send message');
+      }
+
+      setMessages((previousMessages) =>
+        GiftedChat.append(previousMessages, newMessages)
+      );
+    } catch (error) {
+      console.log('Error sending message: ', error);
+    } 
+  }, []);
 
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.avatar}
-        source={{ uri: 'https://i.pravatar.cc/300' }} // Replace with your avatar image URL
-      />
-      <View style={styles.userInfo}>
-        <Text style={styles.username}>{opposingUserName}</Text>
-        <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.chatButton} onPress={onPressChat}>
-            <Text style={styles.buttonText}>Chat</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.removeButton} onPress={onPressRemove}>
-            <Text style={styles.buttonText}>Remove</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+    <GiftedChat
+      messages={messages}
+      showAvatarForEveryMessage={false}
+      showUserAvatar={false}
+      onSend={(newMessages) => onSend(newMessages)}
+      messagesContainerStyle={{
+        backgroundColor: '#fff',
+      }}
+      textInputStyle={{
+        backgroundColor: '#fff',
+        borderRadius: 20,
+      }}
+      user={{
+        _id: user.username,
+        avatar: 'https://i.pravatar.cc/300',
+      }}
+    />
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderColor: '#E1E1E1',
-    backgroundColor: '#FFFFFF', // Background color for the item
-  },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 12,
-  },
-  userInfo: {
-    flex: 1,
-  },
-  username: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333', // Text color
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-  },
-  chatButton: {
-    backgroundColor: '#2979FF',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 4,
-    marginRight: 8,
-  },
-  removeButton: {
-    backgroundColor: '#F44336',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 4,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-  },
-});
-
-export default FriendListItem;
+}

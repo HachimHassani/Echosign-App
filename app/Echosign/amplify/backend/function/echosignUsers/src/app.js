@@ -91,6 +91,25 @@ async function getUserAttributes(username) {
   return attributes;
 }
 
+// Helper function to check if a friend request already exists
+async function getFriendRequest(sender, receiver) {
+  const params = {
+    TableName: process.env.STORAGE_DYNANOFRIENDS_NAME, // Use your DynamoDB table name
+    Key: {
+      USER: sender,
+      FRIEND: receiver,
+    },
+  };
+
+  try {
+    const response = await ddbDocClient.send(new GetCommand(params));
+    return response.Item ? response.Item : null;
+  } catch (err) {
+    console.error('Error checking friend request:', err);
+    return null;
+  }
+}
+
 /**********************
  * Example get method *
  **********************/
@@ -132,38 +151,8 @@ app.get('/users/search',async function(req, res) {
 });
  
 
-app.get('/users/search/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
-});
 
-/****************************
-* Example post method *
-****************************/
 
-app.post('/user-search', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-app.post('/user-search/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example put method *
-****************************/
-
-app.put('/user-search', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-app.put('/user-search/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
 
 
 /***********************
@@ -173,8 +162,15 @@ app.put('/user-search/*', function(req, res) {
 // Create a friend request
 app.post('/users/request', async function(req, res) {
   try {
-    
     const { sender, receiver } = req.body;
+
+    // Check if the friend request already exists
+    const existingRequest = await getFriendRequest(sender, receiver);
+
+    if (existingRequest) {
+      res.status(400).json({ error: 'Friend request already exists' });
+      return;
+    }
 
     // Retrieve user attributes (names) from Cognito for sender and receiver
     const senderAttributes = await getUserAttributes(sender);
@@ -184,11 +180,11 @@ app.post('/users/request', async function(req, res) {
     const params = {
       TableName: process.env.STORAGE_DYNANOFRIENDS_NAME, // Use your DynamoDB table name
       Item: {
-        USER : `${sender}`,
-        FRIEND : `${receiver}`,
+        USER: `${sender}`,
+        FRIEND: `${receiver}`,
         SenderName: senderAttributes.name,
         ReceiverName: receiverAttributes.name,
-        Status: 'pending'
+        Status: 'pending',
       },
     };
     await ddbDocClient.send(new PutCommand(params));

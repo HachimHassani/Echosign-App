@@ -24,6 +24,10 @@
         "echomsgs": {
           "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
           "s3Key": "amplify-builds/echomsgs-6d793456704773535878-build.zip"
+        },
+        "signtranslate": {
+          "deploymentBucketName": "amplify-echosign-staging-220811-deployment",
+          "s3Key": "amplify-builds/signtranslate-6837736f6a564d446334-build.zip"
         }
       },
       "storage": {

@@ -1,5 +1,27 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { KinesisVideo  } from 'aws-amplify';
+
+async function sendFrameToKinesis(frameData) {
+  try {
+    const streamName = 'your-kinesis-stream-name';
+
+    // Initialize Kinesis Video client
+    const kinesisVideo = new KinesisVideo();
+    await kinesisVideo.init();
+
+    // Put a frame into the stream
+    await kinesisVideo.putMedia({
+      streamName,
+      fragmentTimecodeType: 'ABSOLUTE',
+      payload: frameData,
+    });
+
+    console.log('Frame sent to Kinesis Video Stream.');
+  } catch (error) {
+    console.error('Error sending frame:', error);
+  }
+}
 
 const Translate = () => {
   const [inputText, setInputText] = useState('');

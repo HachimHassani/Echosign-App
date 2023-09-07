@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router/tabs';
 import CustomTabBar from '../../components/customtabbar'
 export default function AppLayout() {
-  console.log('app layout');
+
   return (
     <Tabs  screenOptions={{ headerShown: false}} 
     tabBar={(props) => <CustomTabBar {...props} />}>

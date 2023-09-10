@@ -21,4 +21,17 @@ export { default as img8 } from "../assets/colors.png";
 
 export { default as img9 } from "../assets/Mascot7.png";
 
+//[Pink, White, Yellow, Cow, Goat, Lion]
+
+export { default as Pink } from "../assets/color/piink1.png";
+export { default as Yellow } from "../assets/color/yellow1.png";
+export { default as White } from "../assets/color/white1.png";
+
+export { default as Cow } from "../assets/Animals/cow-webp.webp";
+export { default as Goat } from "../assets/Animals/goat-webp.webp";
+export { default as Lion } from "../assets/Animals/lion-webp.webp";
+
+
+
+
 

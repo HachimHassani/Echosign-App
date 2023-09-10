@@ -17,6 +17,7 @@ import ChoiceCard from "../components/ChoiceCards"; // Fixed import name
 import LearnCard from "../components/LearnCard";
 import LongCard from "../components/LongCard";
 import cardsData from "../data/data.json";
+import { router } from "expo-router";
 
 export default function courses() {
 
@@ -94,20 +95,20 @@ export default function courses() {
 
         <View className="justify-center items-center space-y-4">
           <View className=" flex-row justify-evenly items-center ">
-            <LearnCard data={selectedLCardData2} id={selectedLCardData2.id} />
-            <LearnCard data={selectedLCardData3} id={selectedLCardData3.id} />
+            <LearnCard data={selectedLCardData2} id={selectedLCardData2.id} redirect={()=>router.push('/lessonABC')}/>
+            <LearnCard data={selectedLCardData3} id={selectedLCardData3.id} redirect={()=>router.push('/lessonABC')}/>
           </View>
           <View className=" flex-row justify-evenly items-center ">
-            <LearnCard data={selectedLCardData1} id={selectedLCardData1.id} />
-            <LearnCard data={selectedLCardData4} id={selectedLCardData4.id} />
+            <LearnCard data={selectedLCardData1} id={selectedLCardData1.id} redirect={()=>router.push('/lessonABC')}/>
+            <LearnCard data={selectedLCardData4} id={selectedLCardData4.id} redirect={()=>router.push('/lessonABC')}/>
           </View>
           <View>
-            <LearnCard data={selectedLCardData5} id={selectedLCardData5.id} />
+            <LearnCard data={selectedLCardData5} id={selectedLCardData5.id} redirect={()=>router.push('/lessonABC')}/>
           </View>
         </View>
       </ScrollView>
       <View className="h-[10%] mx-[6%]">
-        <ButtomBar />
+        
       </View>
     </View>
   );

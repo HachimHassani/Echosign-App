@@ -11,7 +11,7 @@ import {
 
 import * as Images from "../data/ImageImport.js"; // Make sure to import your image sources
 
-const LearnCard = ({ data, id }) => {
+const LearnCard = ({ data, id,redirect }) => {
   const windowWidth = Dimensions.get("window").width;
 
   const selectedImage = Images[`img${id}`]; // Change "abcss" to the appropriate image key
@@ -39,6 +39,7 @@ const LearnCard = ({ data, id }) => {
           },
         }),
       }}
+      onPress={()=>redirect()}
     >
       <Image
         className=""

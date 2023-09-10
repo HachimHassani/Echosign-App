@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   View,
@@ -14,7 +15,7 @@ const HeaderLearning = () => {
 
   return (
     <View className="flex flex-row justify-evenly items-center">
-      <TouchableOpacity className="h-[100%] w-[10%] justify-center items-center mx-2">
+      <TouchableOpacity className="h-[100%] w-[10%] justify-center items-center mx-2" onPress={()=>router.back()}>
         <Image source={require("../assets/flecheG.png")} resizeMode="contain" />
       </TouchableOpacity>
       <View

@@ -1,9 +1,18 @@
+
+import { Text, TouchableOpacity, View } from 'react-native';
+
+import { useAuth } from '../context/auth';
+import { Amplify, Auth } from 'aws-amplify';
+import awsExports from '../src/aws-exports';
+Amplify.configure(awsExports);
+
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import {Link, Redirect} from 'expo-router';
 
-export default function App() {
+
+export default function Index() {
   return (
+<<<<<<< HEAD
     <>
       <Link
         href="/welcome"
@@ -60,9 +69,11 @@ export default function App() {
         practice
       </Link>
     </>
+=======
+
+
+    <Redirect href="/welcome" /> 
+
+>>>>>>> fc600dcff1de67f987c953a365cc27a7f206016a
   );
 }
-
-const styles = StyleSheet.create({
-  
-});

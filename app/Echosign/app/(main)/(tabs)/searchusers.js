@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet , TouchableOpacity, Image } from 'react-native';
 import { Auth, API } from 'aws-amplify';    
+import { Tab, TabView } from '@rneui/themed';
+import UserSearchScreen from '../searchusers';
+import FriendRequestsScreen from '../friendrequests';
 import { useUser } from '../../../context/auth';
-import ToastPopup from '../../components/Toastpopup';
 
-const UserSearchScreen = () => {
-  const [isSuccessVisible, setIsSuccessVisible] = useState(false); // State to control visibility
-  const successMessage = 'Friend request sent successfully'; // Message content
-  const [errorModalVisible, setErrorModalVisible] = useState(false); // State for error modal
 
+const UserScreen = () => {
+
+  const [index, setIndex] = React.useState(0);
 
   const user =  useUser(); // this is the user object from cognito
 
@@ -98,107 +99,41 @@ const UserSearchScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>User Search</Text>
-      </View>
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search users"
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
-      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-        <Text style={styles.searchButtonText}>Search</Text>
-      </TouchableOpacity>
-      <FlatList
-        data={users}
-        keyExtractor={(item) => item.username.toString()}
-        renderItem={renderUserCard}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-      />
-      {isSuccessVisible && (
-        <ToastPopup isVisible={true} type="success" message={successMessage} onClose={() => setIsSuccessVisible(false)} />
-      )}
-      {errorModalVisible && (
-        <ToastPopup isVisible={true} type="error" message={"Error sending friend request. friend request already sent!!"} onClose={() => setErrorModalVisible(false)} />
-      )}
-    </View>
-  );
-};
+  <>
+  <Tab
+    value={index}
+    onChange={(e) => setIndex(e)}
+    indicatorStyle={{
+      backgroundColor: 'white',
+      height: 3,
+    }}
+    variant="primary"
+  >
+  <Tab.Item
+      title="recieved Requests"
+      titleStyle={{ fontSize: 12 }}
+      icon={{ name: 'heart', type: 'ionicon', color: 'white' }}
+    />
+    <Tab.Item
+      title="Search users"
+      titleStyle={{ fontSize: 12 }}
+      icon={{ name: 'timer', type: 'ionicon', color: 'white' }}
+    />
+    
+    
+  </Tab>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff', // Background color for the entire screen
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  searchInput: {
-    marginBottom: 8,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-  },
-  searchButton: {
-    backgroundColor: 'blue',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  searchButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  userCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-    padding: 16,
-    marginBottom: 8,
-    borderRadius: 8,
-  },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 12,
-  },
-  userInfo: {
-    flex: 1,
-  },
-  userName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  userEmail: {
-    color: '#666',
-  },
-  sendRequestButton: {
-    backgroundColor: 'green', // Customize the button's appearance
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 8,
-  },
-  sendRequestButtonText: {
-    color: 'white', // Customize the text color
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#ccc',
-    marginVertical: 8,
-  },
-});
+  <TabView value={index} onChange={setIndex} animationType="spring">
+  <TabView.Item style={{  width: '100%' }}>
+      <FriendRequestsScreen/>
+    </TabView.Item>
+    <TabView.Item style={{  width: '100%' }}>
+      <UserSearchScreen/>
+    </TabView.Item>
+    
+    
+  </TabView>
+</>);
+  };
 
-export default UserSearchScreen;
+export default UserScreen;

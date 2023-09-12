@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView , StatusBar, Linking} from "react-native";
+import { View, Text, ScrollView , StatusBar, Linking,Button} from "react-native";
 import ButtomBar from "../../components/ButtomBar";
 import MainHeader from "../../components/MainHeader";
 import ExploreEC from "../../components/ExploreEC";
@@ -10,7 +10,12 @@ import cardsData from "../../data/data.json";
 import { Auth, API } from "aws-amplify";
 import { useUser } from "../../../context/auth";
 import { router } from "expo-router";
+import {  useAuthenticator } from '@aws-amplify/ui-react-native';
 
+function SignOutButton() {
+  const { signOut } = useAuthenticator();
+  return <Button title="Sign Out" onPress={signOut} />;
+}
 
 export default function MainPage() {
   const user = useUser(); // this is the user object from cognito
@@ -96,6 +101,8 @@ export default function MainPage() {
             Learn the most popular lessons
           </Text>
         </View>
+
+        <SignOutButton />
 
         <ScrollView horizontal={true} className="flex-row ">
           <LearnCard data={selectedLCardData1} id={selectedLCardData1.id} redirect={()=>router.push('/courses')}/>

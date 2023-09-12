@@ -76,8 +76,11 @@ const FriendRequestsScreen = () => {
   };
 
   return (
-    <View>
-      <Text>Friend Requests</Text>
+    
+    <View className='flex-1 p-4 bg-white' >
+      <View className='flex  items-center mb-4'>
+        <Text className='text-2xl font-bold'>recieved friend requests</Text>
+      </View>
       <FlatList
         data={requests}
         keyExtractor={(item) => item.USER}
@@ -90,7 +93,10 @@ const FriendRequestsScreen = () => {
         )}
       />
     </View>
+  
   );
+  
 };
+
 
 export default FriendRequestsScreen;

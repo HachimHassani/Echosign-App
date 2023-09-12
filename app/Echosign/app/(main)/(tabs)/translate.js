@@ -1,105 +1,86 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { KinesisVideo  } from 'aws-amplify';
+import React, { useState, useRef } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Camera,requestPermissionsAsync } from 'expo-camera';
+import { Video } from 'expo-av';
+import { Storage, API } from 'aws-amplify';
 
-async function sendFrameToKinesis(frameData) {
-  try {
-    const streamName = 'your-kinesis-stream-name';
+const CameraPage = () => {
+  const [isRecording, setIsRecording] = useState(false);
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+  requestPermission();
+  const cameraRef = useRef(null);
+  const videoRef = useRef(null);
 
-    // Initialize Kinesis Video client
-    const kinesisVideo = new KinesisVideo();
-    await kinesisVideo.init();
+  // Implement timer logic here
 
-    // Put a frame into the stream
-    await kinesisVideo.putMedia({
-      streamName,
-      fragmentTimecodeType: 'ABSOLUTE',
-      payload: frameData,
-    });
-
-    console.log('Frame sent to Kinesis Video Stream.');
-  } catch (error) {
-    console.error('Error sending frame:', error);
-  }
-}
-
-const Translate = () => {
-  const [inputText, setInputText] = useState('');
-  const [translatedText, setTranslatedText] = useState('');
-
-  const translateText = async () => {
-    try {
-      // Replace with actual API endpoint and logic
-      const response = await fetch('https://your-translation-api.com/translate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ text: inputText }),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setTranslatedText(result.translation);
-      } else {
-        console.error('Translation failed');
+  const startRecording = async () => {
+    if (cameraRef.current && !isRecording) {
+      try {
+        setIsRecording(true);
+        // Start recording logic here
+      } catch (error) {
+        console.error(error);
       }
+    }
+  };
+
+  const stopRecording = async () => {
+    if (isRecording) {
+      try {
+        // Stop recording logic here
+        setIsRecording(false);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  const uploadVideoToS3 = async (videoFile) => {
+    try {
+      const response = await Storage.put('videos/myVideo.mp4', videoFile, {
+        contentType: 'video/mp4',
+      });
+      // Handle the response or trigger API call
     } catch (error) {
-      console.error('Translation error:', error);
+      console.error(error);
+    }
+  };
+
+  const makePredictionAPIRequest = async () => {
+    try {
+      // Make API request using Amplify API module
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Translate to Sign Language</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter text to translate"
-        value={inputText}
-        onChangeText={(text) => setInputText(text)}
-      />
-      <Button title="Translate" onPress={translateText} />
-      {translatedText && (
-        <View style={styles.translationContainer}>
-          <Text style={styles.translationTitle}>Translated Text:</Text>
-          <Text style={styles.translatedText}>{translatedText}</Text>
-        </View>
+    <View>
+      <Camera  style={{ width: '100%', aspectRatio: 1 }}>
+        {/* Camera preview */}
+      </Camera>
+      {isRecording ? (
+        <Text>Recording...</Text>
+      ) : (
+        <TouchableOpacity onPress={startRecording}>
+          <Text>Start Recording</Text>
+        </TouchableOpacity>
       )}
+      {isRecording && (
+        <TouchableOpacity onPress={stopRecording}>
+          <Text>Stop Recording</Text>
+        </TouchableOpacity>
+      )}
+      <Video ref={videoRef} style={{ width: '100%', height: 300 }} />
+      {/* Timer display */}
+      <TouchableOpacity onPress={uploadVideoToS3}>
+        <Text>Upload to S3</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={makePredictionAPIRequest}>
+        <Text>Make Prediction API Request</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderWidth: 1,
-    borderColor: 'gray',
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  translationContainer: {
-    marginTop: 20,
-  },
-  translationTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  translatedText: {
-    fontSize: 16,
-  },
-});
-
-export default Translate;
+export default CameraPage;

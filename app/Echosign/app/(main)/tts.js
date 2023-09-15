@@ -1,16 +1,24 @@
-import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet, TextInput } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import { FontAwesome } from '@expo/vector-icons';
-import { Predictions,Storage } from 'aws-amplify';
+import { API, Predictions,Storage } from 'aws-amplify';
 import { decode } from 'base-64';
+import { useUser } from '../../context/auth';
+import { Button } from '@rneui/themed';
 
+const Ttspage = () => {
+  const apiName = 'apiEchsign';
+  const user = useUser();
 
-export default function App() {
   const [recording, setRecording] = useState(null);
   const [recordingStatus, setRecordingStatus] = useState('idle');
   const [audioPermission, setAudioPermission] = useState(null);
+
+
+  //tts stuff
+  const [text, setText] = useState('hello world');
 
   useEffect(() => {
     async function getPermission() {
@@ -106,12 +114,43 @@ export default function App() {
     }
   }
 
+  async function ttshandle() {
+    try {
+      const response = await API.post(apiName, '/predict/tts', {
+        headers: {
+          Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`
+          },
+        body: {
+          text: text,
+          },
+          });
+      console.log(response);
+       // Add a 1.5-second delay before playing the audio
+  await new Promise(resolve => setTimeout(resolve, 15000));
+
+  console.log('1.5 seconds have passed, now playing audio.');
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: response.mp3FileURL },
+      );
+      await sound.playAsync();
+      console.log('Playing audio');
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <View style={styles.container}>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Enter text to be spoken"
+        onChangeText={(newText) => setText(newText)} // Update the 'text' state when the user types
+        value={text} // Bind the input value to the 'text' state
+      />
       <TouchableOpacity style={styles.button} onPress={handleRecordButtonPress}>
         <FontAwesome name={recording ? 'stop-circle' : 'circle'} size={64} color="white" />
       </TouchableOpacity>
       <Text style={styles.recordingStatusText}>{`Recording status: ${recordingStatus}`}</Text>
+      <Button onPress={ttshandle}>ttshandle</Button>
     </View>
   );
 }
@@ -121,6 +160,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  textInput: {
+    width: '80%',
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
   },
   button: {
     alignItems: 'center',
@@ -134,3 +181,5 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
+
+export default Ttspage;

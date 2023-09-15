@@ -15,8 +15,8 @@ import {Link, Redirect} from 'expo-router';
 
 
 export default function Index() {
-  Amplify.register(Predictions);
-  Predictions.addPluggable(new AmazonAIPredictionsProvider());
+  // Amplify.register(Predictions);
+  // Predictions.addPluggable(new AmazonAIPredictionsProvider());
   return (
 
 

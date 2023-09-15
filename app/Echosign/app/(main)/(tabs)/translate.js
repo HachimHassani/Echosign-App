@@ -1,86 +1,54 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Camera,requestPermissionsAsync } from 'expo-camera';
-import { Video } from 'expo-av';
-import { Storage, API } from 'aws-amplify';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, FlatList, StyleSheet , TouchableOpacity, Image } from 'react-native';
+import { Auth, API } from 'aws-amplify';    
+import { Tab, TabView } from '@rneui/themed';
+import CameraPage from '../cameraa';
+import Ttspage from '../tts';
+import { useUser } from '../../../context/auth';
 
-const CameraPage = () => {
-  const [isRecording, setIsRecording] = useState(false);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
-  requestPermission();
-  const cameraRef = useRef(null);
-  const videoRef = useRef(null);
 
-  // Implement timer logic here
+const UserScreen = () => {
 
-  const startRecording = async () => {
-    if (cameraRef.current && !isRecording) {
-      try {
-        setIsRecording(true);
-        // Start recording logic here
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
+  const [index, setIndex] = React.useState(0);
 
-  const stopRecording = async () => {
-    if (isRecording) {
-      try {
-        // Stop recording logic here
-        setIsRecording(false);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
-  const uploadVideoToS3 = async (videoFile) => {
-    try {
-      const response = await Storage.put('videos/myVideo.mp4', videoFile, {
-        contentType: 'video/mp4',
-      });
-      // Handle the response or trigger API call
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const makePredictionAPIRequest = async () => {
-    try {
-      // Make API request using Amplify API module
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
   return (
-    <View>
-      <Camera  style={{ width: '100%', aspectRatio: 1 }}>
-        {/* Camera preview */}
-      </Camera>
-      {isRecording ? (
-        <Text>Recording...</Text>
-      ) : (
-        <TouchableOpacity onPress={startRecording}>
-          <Text>Start Recording</Text>
-        </TouchableOpacity>
-      )}
-      {isRecording && (
-        <TouchableOpacity onPress={stopRecording}>
-          <Text>Stop Recording</Text>
-        </TouchableOpacity>
-      )}
-      <Video ref={videoRef} style={{ width: '100%', height: 300 }} />
-      {/* Timer display */}
-      <TouchableOpacity onPress={uploadVideoToS3}>
-        <Text>Upload to S3</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={makePredictionAPIRequest}>
-        <Text>Make Prediction API Request</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+  <>
+  <Tab
+    value={index}
+    onChange={(e) => setIndex(e)}
+    indicatorStyle={{
+      backgroundColor: 'white',
+      height: 3,
+    }}
+    variant="primary"
+  >
+  <Tab.Item
+      title="sign translations"
+      titleStyle={{ fontSize: 12 }}
+      icon={{ name: 'heart', type: 'ionicon', color: 'white' }}
+    />
+    <Tab.Item
+      title="text to speech"
+      titleStyle={{ fontSize: 12 }}
+      icon={{ name: 'timer', type: 'ionicon', color: 'white' }}
+    />
+    
+    
+  </Tab>
 
-export default CameraPage;
+  <TabView value={index} onChange={setIndex} animationType="spring">
+  <TabView.Item style={{  width: '100%' }}>
+      <CameraPage/>
+    </TabView.Item>
+    <TabView.Item style={{  width: '100%' }}>
+      <Ttspage/>
+    </TabView.Item>
+    
+    
+  </TabView>
+</>);
+  };
+
+export default UserScreen;

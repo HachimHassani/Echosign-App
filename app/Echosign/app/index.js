@@ -1,24 +1,85 @@
+
+import { Text, TouchableOpacity, View } from 'react-native';
+
+import { useAuth } from '../context/auth';
+import { Amplify, Auth} from 'aws-amplify';
+import {
+  Predictions,
+  AmazonAIPredictionsProvider
+} from '@aws-amplify/predictions';
+import awsExports from '../src/aws-exports';
+Amplify.configure(awsExports);
+
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router';
+import {Link, Redirect} from 'expo-router';
 
-export default function App() {
+
+export default function Index() {
+  // Amplify.register(Predictions);
+  // Predictions.addPluggable(new AmazonAIPredictionsProvider());
   return (
-    <View style={styles.container}>
-      <Text>main page!</Text>
-      <Link href="/auth/login">login</Link>
+<<<<<<< HEAD
+    <>
+      <Link
+        href="/welcome"
+        className=" text-blue-500 justify-center items-center text-xl"
+      >
+        start
+      </Link>
+      <Link
+        href="/mainPage"
+        className=" text-blue-500 justify-center items-center text-xl"
+      >
+        home Page
+      </Link>
+      <Link
+        href="/courses"
+        className=" text-blue-500 justify-center items-center text-xl"
+      >
+        learn
+      </Link>
+      <Link
+        href="/lessonABC"
+        className=" text-blue-500 justify-center items-center text-xl"
+      >
+        study abc
+      </Link>
+      <Link
+        href="/echoSign"
+        className=" text-blue-500 justify-center items-center text-xl"
+      >
+        about us
+      </Link>
+      <Link
+        href="/lessonColor"
+        className=" text-blue-500 justify-center items-center text-xl"
+      >
+        Study color
+      </Link>
+      <Link
+        href="/lessonAnimals"
+        className=" text-blue-500 justify-center items-center text-xl"
+      >
+        Study animals
+      </Link>
+      <Link
+        href="/lessonNum"
+        className=" text-blue-500 justify-center items-center text-xl"
+      >
+        Study numbers
+      </Link>
+      <Link
+        href="/game"
+        className=" text-blue-500 justify-center items-center text-xl"
+      >
+        practice
+      </Link>
+    </>
+=======
 
-  <Link href="/test">Test</Link>
-      <StatusBar style="auto" />
-    </View>
+
+    <Redirect href="/welcome" /> 
+
+>>>>>>> fc600dcff1de67f987c953a365cc27a7f206016a
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -1,46 +1,75 @@
 import * as React from "react";
-import { StatusBar, StyleSheet, View, Text } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 
-import { LinearGradient } from "expo-linear-gradient";
 
+import { Authenticator, useAuthenticator , picture} from '@aws-amplify/ui-react-native'
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
-
-const login = () => {
+import { Redirect } from "expo-router";
+const MyAppHeader = () => {
+  const {
+    tokens: { space, fontSizes },
+  } = useTheme();
   return (
-    <View className="mt-8 px-2" style={styles.view}>
-      <StatusBar style={styles.childLayout} barStyle="default" />
-      <View style={[styles.child, styles.childLayout]} />
-      <View style={[styles.rectangleParent, styles.groupChildLayout]}>
-        <View style={[styles.groupChild, styles.groupChildLayout]} />
-        <Text className="text-2xl text-blue-100 dark:text-white">Don’t have an account ? register</Text>
-      </View>
-      <Text style={[styles.welcomeBack, styles.welcomeBackPosition]}>
-        Welcome back ! log in !!
+    <View>
+      <Text style={{ fontSize: fontSizes.xxxl, padding: space.xl }}>
+        My Header
       </Text>
-      <Text
-        style={[styles.lorenIpsumSdjfcs, styles.welcomeBackPosition]}
-      >{`loren ipsum sdjfcs chfhsche chcth cethce cthecet hcetch `}</Text>
-      <View style={styles.sliderStarter}>
-        <View style={styles.sliderStarterChild} />
-        <View style={[styles.sliderStarterItem, styles.sliderLayout]} />
-        <View style={[styles.sliderStarterInner, styles.sliderLayout]} />
-      </View>
-      <View style={[styles.seperator, styles.seperatorPosition]} />
-      
-      
-      <View style={[styles.group3btnConponent, styles.seperatorPosition]}>
-        <LinearGradient
-          style={[styles.group3btnConponentChild, styles.group3btnLayout]}
-          locations={[0.29, 0.98]}
-          colors={["#1aa6b7", "#54bd95"]}
-        />
-        <Text style={[styles.next, styles.nextTypo]}>login</Text>
-        <Text style={[styles.back, styles.nextTypo]}>Back</Text>
-        <View style={[styles.group3btnConponentItem, styles.group3btnLayout]} />
-      </View>
     </View>
   );
 };
+const formFields = {
+   signUp: {
+     email: {
+       order:1
+     },
+     name: {
+       order: 2
+     },
+     nickname: {
+       order: 3
+     },
+     
+     password: {
+       order: 4
+     },
+     confirm_password: {
+       order: 5
+     }
+   },
+  }
+const customcomponents = {
+  signUp: {
+    FormFields() {
+      return (
+        <>
+                {/* Re-use default `Authenticator.SignUp.FormFields` */}
+                <Authenticator.SignUp.FormFields />
+          <Text>My Custom Sign Up Form</Text>
+        </>
+      );
+    },
+  },
+}
+        
+
+
+              
+
+const login = () => {
+    console.log('login');
+    return (
+      <Authenticator.Provider>
+        <Authenticator formFields={formFields} initialState="signUp" >
+          
+          <Redirect href="/mainPage" />
+
+        </Authenticator>
+      </Authenticator.Provider>
+    );
+  
+  
+};
+
 
 const styles = StyleSheet.create({
   childLayout: {

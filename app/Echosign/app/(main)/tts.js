@@ -146,11 +146,11 @@ const Ttspage = () => {
         onChangeText={(newText) => setText(newText)} // Update the 'text' state when the user types
         value={text} // Bind the input value to the 'text' state
       />
-      <TouchableOpacity style={styles.button} onPress={handleRecordButtonPress}>
+      {/* <TouchableOpacity style={styles.button} onPress={handleRecordButtonPress}>
         <FontAwesome name={recording ? 'stop-circle' : 'circle'} size={64} color="white" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Text style={styles.recordingStatusText}>{`Recording status: ${recordingStatus}`}</Text>
-      <Button onPress={ttshandle}>ttshandle</Button>
+      <Button onPress={ttshandle}>Speak</Button>
     </View>
   );
 }

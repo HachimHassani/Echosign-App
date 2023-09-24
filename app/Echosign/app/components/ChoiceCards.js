@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import * as Images from "../data/ImageImport.js";
 
-const ChoiceCard = ({ data, id }) => {
+const ChoiceCard = ({ data, id, redirect }) => {
   const windowWidth = Dimensions.get("window").width;
 
   const selectedImage = Images[`img${id}`];
@@ -26,6 +26,7 @@ const ChoiceCard = ({ data, id }) => {
         alignItems: "center",
         marginHorizontal: 7,
       }}
+      onPress={() => redirect()}
     >
       <View
         className=""

@@ -7,8 +7,11 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { router } from "expo-router"; 
+
 import Svg, { Path } from "react-native-svg";
 import * as Images from "../data/ImageImport.js";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function GameCom() {
   const arrayResponse = ["Pink", "White", "Yellow", "Cow", "Goat", "Lion"];
@@ -57,9 +60,12 @@ export default function GameCom() {
   };
 
   return (
-    <View>
+    <SafeAreaView>
       <View className="h-[8%] flex-row">
-        <TouchableOpacity className="w-[19%] items-center justify-center ">
+        <TouchableOpacity
+          className="w-[19%] items-center justify-center "
+          onPress={() => router.back()}
+        >
           <Svg
             width={28}
             height={27}
@@ -125,7 +131,7 @@ export default function GameCom() {
         </TouchableOpacity>
       </View>
       <View className=" h-[26%] justify-center items-center">
-        <View className="bg-slate-100 h-[80%] w-[75%] rounded-[50%] justify-end items-center">
+        <View className="bg-slate-100 h-[80%] w-[75%] rounded-3xl justify-end items-center">
           <View className="h-[40%] w-[76%] justify-center items-center">
             <Text className="text-gray-600 text-lg font-light">
               {buttonMessage}
@@ -133,7 +139,7 @@ export default function GameCom() {
           </View>
           <TouchableOpacity
             onPress={handleNextQuestionClick}
-            className="bg-white opacity-60 h-[50%] w-[84%] rounded-[50%] mb-3 justify-center items-center "
+            className="bg-white opacity-60 h-[50%] w-[84%] rounded-3xl mb-3 justify-center items-center "
           >
             <Text className="text-gray-900 text-xl font-Medium">
               Next Question!
@@ -141,6 +147,6 @@ export default function GameCom() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

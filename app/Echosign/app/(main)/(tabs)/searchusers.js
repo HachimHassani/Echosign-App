@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, StyleSheet , TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, Button, FlatList, StyleSheet ,SafeAreaView, TouchableOpacity, Image } from 'react-native';
 import { Auth, API } from 'aws-amplify';    
 import { Tab, TabView } from '@rneui/themed';
 import UserSearchScreen from '../searchusers';
@@ -80,10 +80,10 @@ const UserScreen = () => {
   };
 
   const renderUserCard = ({ item }) => (
-    <View style={styles.userCard}>
+    <SafeAreaView style={styles.userCard}>
       <Image
         style={styles.avatar}
-        source={{ uri: 'https://i.pravatar.cc/300' }} // Replace with your avatar image URL
+        source={{ uri: "https://i.pravatar.cc/300" }} // Replace with your avatar image URL
       />
       <View style={styles.userInfo}>
         <Text style={styles.userName}>{item.name}</Text>
@@ -95,45 +95,53 @@ const UserScreen = () => {
           <Text style={styles.sendRequestButtonText}>Send Friend Request</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 
   return (
-  <>
-  <Tab
-    value={index}
-    onChange={(e) => setIndex(e)}
-    indicatorStyle={{
-      backgroundColor: 'white',
-      height: 3,
-    }}
-    variant="primary"
-  >
-  <Tab.Item
-      title="recieved Requests"
-      titleStyle={{ fontSize: 12 }}
-      icon={{ name: 'heart', type: 'ionicon', color: 'white' }}
-    />
-    <Tab.Item
-      title="Search users"
-      titleStyle={{ fontSize: 12 }}
-      icon={{ name: 'timer', type: 'ionicon', color: 'white' }}
-    />
-    
-    
-  </Tab>
+    <>
+      <Tab
+        value={index}
+        onChange={(e) => setIndex(e)}
+        indicatorStyle={{
+          backgroundColor: "#1AA6B7",
+          height: 6,
+          marginTop: 100,
+        }}
+      >
+        <Tab.Item
+          title="recieved Requests"
+          titleStyle={{ fontSize: 14, color: "#1AA6B7" }}
+          icon={{
+            name: "person-add",
+            type: "ionicon",
+            color: "#1AA6B7",
+            marginTop: 40,
+            
+          }}
+        />
+        <Tab.Item
+          title="Search users"
+          titleStyle={{ fontSize: 14, color: "#1AA6B7" }}
+          icon={{
+            name: "search",
+            type: "ionicon",
+            color: "#1AA6B7",
+            marginTop: 40,
+          }}
+        />
+      </Tab>
 
-  <TabView value={index} onChange={setIndex} animationType="spring">
-  <TabView.Item style={{  width: '100%' }}>
-      <FriendRequestsScreen/>
-    </TabView.Item>
-    <TabView.Item style={{  width: '100%' }}>
-      <UserSearchScreen/>
-    </TabView.Item>
-    
-    
-  </TabView>
-</>);
+      <TabView value={index} onChange={setIndex} animationType="spring">
+        <TabView.Item style={{ width: "100%" }}>
+          <FriendRequestsScreen />
+        </TabView.Item>
+        <TabView.Item style={{ width: "100%" }}>
+          <UserSearchScreen />
+        </TabView.Item>
+      </TabView>
+    </>
+  );
   };
 
 export default UserScreen;

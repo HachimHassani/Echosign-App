@@ -3,6 +3,8 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import { Auth, API } from 'aws-amplify';
 import { router,useLocalSearchParams } from 'expo-router';
 import { useUser } from '../../../context/auth';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+
 
 export default function chat() {
   const { id } = useLocalSearchParams();
@@ -40,6 +42,9 @@ export default function chat() {
     } catch (error) {
       console.log('Error fetching messages: ', error);
     }
+    setTimeout(() => {
+      fetchMessages();
+    }, 3500);
   };
 
   useEffect(() => {
@@ -77,22 +82,25 @@ export default function chat() {
   }, []);
 
   return (
-    <GiftedChat
-      messages={messages}
-      showAvatarForEveryMessage={false}
-      showUserAvatar={false}
-      onSend={(newMessages) => onSend(newMessages)}
-      messagesContainerStyle={{
-        backgroundColor: '#fff',
-      }}
-      textInputStyle={{
-        backgroundColor: '#fff',
-        borderRadius: 20,
-      }}
-      user={{
-        _id: user.username,
-        avatar: 'https://i.pravatar.cc/300',
-      }}
-    />
+   
+      
+      <GiftedChat
+        messages={messages}
+        showAvatarForEveryMessage={false}
+        showUserAvatar={false}
+        onSend={(newMessages) => onSend(newMessages)}
+        messagesContainerStyle={{
+          backgroundColor: "#fff",
+        }}
+        textInputStyle={{
+          backgroundColor: "#fff",
+          borderRadius: 20,
+        }}
+        user={{
+          _id: user.username,
+          avatar: "https://i.pravatar.cc/300",
+        }}
+      />
+    
   );
 }

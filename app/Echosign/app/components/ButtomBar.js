@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: '#B6E5EA',
-    
     borderRadius:25,
     padding: 10,
+    
     
   },
   iconContainer: {

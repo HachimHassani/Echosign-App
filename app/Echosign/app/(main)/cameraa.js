@@ -144,9 +144,6 @@ const CameraPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Sign translation</Text>
-      </View>
       <Camera
         ref={cameraRef}
         style={styles.camera}
@@ -155,13 +152,13 @@ const CameraPage = () => {
       <View style={styles.buttonsContainer}>
         {isRecording ? (
           <TouchableOpacity onPress={stopRecording}>
-            <MaterialCommunityIcons name="crop-square" size={40} color="red" />
+            <MaterialCommunityIcons name="crop-square" size={30} color="red" />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={startRecordingWithDelay}>
             <MaterialCommunityIcons
               name="record-circle"
-              size={60}
+              size={50}
               color="green"
             />
           </TouchableOpacity>
@@ -181,35 +178,37 @@ const CameraPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   header: {
     marginBottom: 20,
   },
   headerText: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   camera: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 1,
+    marginBottom: 10,
   },
   buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 20,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 10,
   },
   predictionText: {
     fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 10,
+    fontWeight: "bold",
+    marginTop: 5,
+    color: "#1AA6B7",
   },
   responseText: {
     fontSize: 16,
     margin: 10,
-    textAlign: 'left',
+    textAlign: "left",
   },
 });
 

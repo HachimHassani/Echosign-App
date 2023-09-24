@@ -1,20 +1,20 @@
 import * as React from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
-
-
 import { Authenticator, useAuthenticator , picture} from '@aws-amplify/ui-react-native'
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
 import { Redirect } from "expo-router";
+
+
 const MyAppHeader = () => {
   const {
     tokens: { space, fontSizes },
   } = useTheme();
   return (
-    <View>
+    <SafeAreaView>
       <Text style={{ fontSize: fontSizes.xxxl, padding: space.xl }}>
         My Header
       </Text>
-    </View>
+    </SafeAreaView>
   );
 };
 const formFields = {
@@ -60,9 +60,7 @@ const login = () => {
     return (
       <Authenticator.Provider>
         <Authenticator formFields={formFields} initialState="signUp" >
-          
           <Redirect href="/mainPage" />
-
         </Authenticator>
       </Authenticator.Provider>
     );

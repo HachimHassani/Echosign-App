@@ -6,8 +6,12 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
+  Button,
 } from "react-native";
+import { router } from "expo-router"; 
 import HeaderLearning from "../components/HeaderLearning";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const lessonAnimals = () => {
   const screenWidth = Dimensions.get("window").width;
@@ -17,19 +21,21 @@ const lessonAnimals = () => {
   const flexItemWidth = (screenWidth - 20) / itemsPerRow; // Soustrayez les marges ou les rembourrages éventuels
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.flexContainer}>
+    <SafeAreaView style={styles.container}>
+      <View className="flex-row h-[10%] w-[100%]">
+        <TouchableOpacity
+          className="h-[100%] w-[10%] mx-[5%] justify-center items-center  "
+          onPress={() => router.back()}
+        >
           <Image
             source={require("../assets/flecheG.png")}
             resizeMode="contain"
           />
-        </View>
+        </TouchableOpacity>
+
         <View
+          className="h-[70%] w-[55%] rounded-3xl mt-[4%] justify-center items-center  bg-[#1AA6B7]"
           style={{
-            ...styles.flexContainer,
-            backgroundColor: "#1AA6B7",
-            borderRadius: 35,
             // Ajoutez des ombres en fonction de la plateforme
             ...Platform.select({
               ios: {
@@ -46,11 +52,11 @@ const lessonAnimals = () => {
         >
           <Text style={styles.title}>Animals ASL</Text>
         </View>
-        <View style={styles.flexContainer}>
+        <View className="h-[100%] w-[22%] mx-[2%] ">
           <Image
             style={{
               height: "100%",
-              width: "100%",
+              width: "80%",
             }}
             source={require("../assets/Mascot5.png")}
             resizeMode="contain"
@@ -95,7 +101,7 @@ const lessonAnimals = () => {
           <Text style={styles.description}>Lion</Text>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -117,14 +123,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: 15,
+    width: "100%",
   },
   title: {
-    fontSize: 20,
+    fontSize: 19,
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 10,
+    marginBottom: 7,
+    width: "100%",
   },
   image: {
     width: 300,

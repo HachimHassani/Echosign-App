@@ -9,6 +9,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
         const label = options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
 
         return (
+          
           <TouchableOpacity
             key={index}
             style={[
@@ -39,6 +40,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#B6E5EA',
     borderRadius: 25,
     padding: 10,
+    marginHorizontal: 15,
+    margin: 10,
   },
   iconContainer: {
     padding: 8,

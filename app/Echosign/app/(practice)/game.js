@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import GameCom from "../components/GameCom";
 
-export default function echoSign() {
+export default function game() {
   return (
     <View className="flex-1 w-full h-full justify-center items-center">
       <GameCom />

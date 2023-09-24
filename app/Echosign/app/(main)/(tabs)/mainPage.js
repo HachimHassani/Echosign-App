@@ -1,5 +1,15 @@
 import React from "react";
-import { View, Text, ScrollView , StatusBar, Linking,Button} from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  StatusBar,
+  Linking,
+  Button,
+
+  TouchableOpacity,
+} from "react-native";
 import ButtomBar from "../../components/ButtomBar";
 import MainHeader from "../../components/MainHeader";
 import ExploreEC from "../../components/ExploreEC";
@@ -12,14 +22,10 @@ import { useUser } from "../../../context/auth";
 import { router } from "expo-router";
 import {  useAuthenticator } from '@aws-amplify/ui-react-native';
 
-function SignOutButton() {
-  const { signOut } = useAuthenticator();
-  return <Button title="Sign Out" onPress={signOut} />;
-}
+
 
 export default function MainPage() {
-  const user = useUser(); // this is the user object from cognito
-
+  const user = useUser(); 
 
   async function postData() {
   const apiName = 'apiEchsign';
@@ -83,40 +89,55 @@ export default function MainPage() {
   const selectedLCardData4 = cardsData.find((card) => card.id === 8);
 
   return (
-    <View className="flex-1 w-full h-full">
-          <StatusBar  backgroundColor="white" />
-
-      <View className="h-[13%] mx-[4%]">
+    <SafeAreaView className="flex-1 w-full h-full bg-white">
+      <View className="h-[12%] mx-[4%] mt-[4%]">
         <MainHeader userName={userName} />
       </View>
 
-      <ScrollView className="h-[95%] px-[2%]">
-        <ExploreEC onpress={()=>openWebsite()}/>
+      <ScrollView className="h-auto px-[2%]">
+        <ExploreEC onPress={() => router.push("/echosign")} />
 
-        <View className="m-[5%]">
+        <TouchableOpacity
+          className="mx-[6%] my-[4%]"
+          onPress={() => router.push("/courses")}
+        >
           <Text className="text-black text-xl font-bold opacity-90 text-left">
             Popular lessons ..
           </Text>
           <Text className="text-black text-xs opacity-70 text-left">
             Learn the most popular lessons
           </Text>
-        </View>
+        </TouchableOpacity>
 
-        <SignOutButton />
-
-        <ScrollView horizontal={true} className="flex-row ">
-          <LearnCard data={selectedLCardData1} id={selectedLCardData1.id} redirect={()=>router.push('/courses')}/>
-          <LearnCard data={selectedLCardData2} id={selectedLCardData2.id} redirect={()=>router.push('/courses')}/>
-          <LearnCard data={selectedLCardData3} id={selectedLCardData3.id} redirect={()=>router.push('/courses')}/>
-          <LearnCard data={selectedLCardData4} id={selectedLCardData4.id} redirect={()=>router.push('/courses')}/>
+        <ScrollView horizontal={true} className="flex-row pb-[2%]">
+          <LearnCard
+            data={selectedLCardData1}
+            id={selectedLCardData1.id}
+            redirect={() => router.push("/lessonABC")}
+          />
+          <LearnCard
+            data={selectedLCardData2}
+            id={selectedLCardData2.id}
+            redirect={() => router.push("/lessonAnimals")}
+          />
+          <LearnCard
+            data={selectedLCardData3}
+            id={selectedLCardData3.id}
+            redirect={() => router.push("/lessonNum")}
+          />
+          <LearnCard
+            data={selectedLCardData4}
+            id={selectedLCardData4.id}
+            redirect={() => router.push("/lessonColor")}
+          />
         </ScrollView>
+
         {/*
         <ChoiceCard data={selectedCardData} id={selectedCardData.id} />
         <LearnCard data={selectedLCardData} id={selectedLCardData.id} />
-        
         */}
 
-        <View className="m-[5%] flex-row justify-between items-center">
+        <View className="mx-[8%] my-[4%] flex-row justify-between items-center">
           <Text className="text-black text-xl font-bold opacity-90 text-left">
             Translation
           </Text>
@@ -125,11 +146,19 @@ export default function MainPage() {
           </Text>
         </View>
         <View className=" flex-row justify-between items-center ">
-          <ChoiceCard data={selectedCardData1} id={selectedCardData1.id} />
-          <ChoiceCard data={selectedCardData2} id={selectedCardData2.id} />
+          <ChoiceCard
+            data={selectedCardData1}
+            id={selectedCardData1.id}
+            redirect={() => router.push("/translate")}
+          />
+          <ChoiceCard
+            data={selectedCardData2}
+            id={selectedCardData2.id}
+            redirect={() => router.push("/translate")}
+          />
         </View>
 
-        <View className="m-[5%] flex-row justify-between items-center">
+        <View className="mx-[8%] my-[4%] flex-row justify-between items-center">
           <Text className="text-black text-xl font-bold opacity-90 text-left">
             Messaging
           </Text>
@@ -138,10 +167,10 @@ export default function MainPage() {
           </Text>
         </View>
         <View className="justify-center items-center">
-          <LongCard />
+          <LongCard redirect={() => router.push("/friendlist")} />
         </View>
 
-        <View className="m-[5%] flex-row justify-between items-center">
+        <View className="mx-[8%] my-[4%] flex-row justify-between items-center">
           <Text className="text-black text-xl font-bold opacity-90 text-left">
             Practice
           </Text>
@@ -150,13 +179,20 @@ export default function MainPage() {
           </Text>
         </View>
         <View className=" flex-row justify-between items-center ">
-          <ChoiceCard data={selectedCardData3} id={selectedCardData3.id} />
-          <ChoiceCard data={selectedCardData4} id={selectedCardData4.id} />
+          <ChoiceCard
+            data={selectedCardData3}
+            id={selectedCardData3.id}
+            redirect={() => router.push("/mainPage")}
+          />
+          <ChoiceCard
+            data={selectedCardData4}
+            id={selectedCardData4.id}
+            redirect={() => router.push("/game")}
+          />
         </View>
 
-        <View className="m-[5%]"></View>
+        <View className="mb-[5%]"></View>
       </ScrollView>
-
-    </View>
+    </SafeAreaView>
   );
 }

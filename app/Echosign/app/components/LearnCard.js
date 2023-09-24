@@ -19,7 +19,7 @@ const LearnCard = ({ data, id,redirect }) => {
 
   return (
     <TouchableOpacity
-      className="flex-col justify-center items-center py-2"
+      className="flex-col justify-center items-center py-2 my-[1%]"
       style={{
         backgroundColor: data.backgroundColor,
         width: (windowWidth - 60) * 0.5,

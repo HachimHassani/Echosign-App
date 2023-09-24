@@ -153,46 +153,44 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 16,
   },
   headerTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   searchContainer: {
-    flexDirection: 'row', // Horizontal layout
-    alignItems: 'center', // Vertically align items
+    flexDirection: "row", // Horizontal layout
+    alignItems: "center", // Vertically align items
     marginBottom: 8,
   },
   searchInput: {
     flex: 1, // Allow the input to expand to fill available space
     padding: 12,
     borderWidth: 1,
-    borderColor: '#ccc',
     borderRadius: 8,
-    backgroundColor: '#f5f5f5',
     marginRight: 8, // Add spacing between search bar and button
   },
   searchButton: {
-    backgroundColor: 'blue',
+    backgroundColor: "#1AA6B7",
     padding: 12,
     borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     minWidth: 80, // Set a minimum width to prevent squeezing
   },
   searchButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
   },
   userCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
     padding: 16,
     marginBottom: 8,
     borderRadius: 8,
@@ -208,25 +206,25 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   userEmail: {
-    color: '#666',
+    color: "#666",
   },
   sendRequestButton: {
-    backgroundColor: 'green', // Customize the button's appearance
+    backgroundColor: "green", // Customize the button's appearance
     padding: 12,
     borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 8,
   },
   sendRequestButtonText: {
-    color: 'white', // Customize the text color
+    color: "white", // Customize the text color
   },
   separator: {
     height: 1,
-    backgroundColor: '#ccc',
+    backgroundColor: "#ccc",
     marginVertical: 8,
   },
 });

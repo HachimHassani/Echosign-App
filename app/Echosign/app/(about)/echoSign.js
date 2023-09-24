@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { router } from "expo-router"; 
 import ButtomBar from "../components/ButtomBar";
 import LogoImage from "../assets/flecheD.png";
 import LocalImageGrid from "../components/LocalImageGrid";
@@ -18,7 +19,10 @@ export default function echoSign() {
   return (
     <View className="flex-1 w-full h-full">
       <View className="h-[85%] my-[4%] mx-[5%] p-[2%] rounded-3xl">
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => router.push("/mainPage")}
+        >
           <View>
             <Text style={styles.buttonText}>Explore the Innovation!</Text>
             <Text style={styles.buttonSubText}>
@@ -28,7 +32,7 @@ export default function echoSign() {
           <Image source={LogoImage} />
         </TouchableOpacity>
 
-        <ScrollView className="m-[5%] ">
+        <ScrollView className="mt-[5%] " onPress={() => router.back()}>
           <View className="m-2 mb-6">
             <Text className="text-black text-2xl font-bold opacity-90 text-left">
               what is <Text className="text-[#1AA6B7]">EchoSign ?</Text>
@@ -83,6 +87,7 @@ export default function echoSign() {
 const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: "white",
+    marginTop: "7%",
     padding: "7%",
     borderRadius: 999, // Use a large value for circular shape
     flexDirection: "row",

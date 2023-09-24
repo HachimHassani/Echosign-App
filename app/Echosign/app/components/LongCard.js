@@ -9,11 +9,12 @@ import {
   Platform,
 } from "react-native";
 
-const ChoiceCard = () => {
+const LongCard = ({redirect}) => {
   const windowWidth = Dimensions.get("window").width;
 
   return (
     <TouchableOpacity
+      onPress={() => redirect()}
       className="flex-row justify-evenly items-center p-2"
       style={{
         backgroundColor: "white",
@@ -85,4 +86,4 @@ const ChoiceCard = () => {
 
 const styles = StyleSheet.create({});
 
-export default ChoiceCard;
+export default LongCard;

@@ -7,8 +7,11 @@ import {
   ScrollView,
   Dimensions,
   Platform,
+  TouchableOpacity,
 } from "react-native";
+import { router } from "expo-router";
 import HeaderLearning from "../components/HeaderLearning";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const lessonNum = () => {
   const screenWidth = Dimensions.get("window").width;
@@ -18,20 +21,22 @@ const lessonNum = () => {
   const largeurElementFlex = (screenWidth - 20) / itemsParLigne; // Soustrayez les marges ou les rembourrages éventuels
 
   return (
-    <View style={styles.container}>
-      <View style={styles.enTête}>
-        <View style={styles.conteneurFlex}>
+    <SafeAreaView style={styles.container}>
+      <View className="flex-row h-[10%] w-[100%]">
+        <TouchableOpacity
+          className="h-[100%] w-[10%] mx-[5%] justify-center items-center  "
+          onPress={() => router.back()}
+        >
           <Image
             source={require("../assets/flecheG.png")}
             resizeMode="contain"
           />
-        </View>
+        </TouchableOpacity>
+
         <View
+          className="h-[70%] w-[55%] rounded-3xl mt-[4%] justify-center items-center  bg-[#1AA6B7]"
           style={{
-            ...styles.conteneurFlex,
-            backgroundColor: "#1AA6B7",
-            borderRadius: 35,
-            // Ajouter des ombres en fonction de la plateforme
+            // Ajoutez des ombres en fonction de la plateforme
             ...Platform.select({
               ios: {
                 shadowColor: "black",
@@ -45,13 +50,13 @@ const lessonNum = () => {
             }),
           }}
         >
-          <Text style={styles.titre}>Nombres en ASL</Text>
+          <Text style={styles.title}>Numbers ASL</Text>
         </View>
-        <View style={styles.conteneurFlex}>
+        <View className="h-[100%] w-[22%] mx-[2%] ">
           <Image
             style={{
               height: "100%",
-              width: "100%",
+              width: "80%",
             }}
             source={require("../assets/Mascot5.png")}
             resizeMode="contain"
@@ -60,15 +65,15 @@ const lessonNum = () => {
       </View>
       <ScrollView style={styles.scrollVue}>
         <View style={styles.conteneurFlex}>
-            <Image
-              source={require("../assets/1to5.jpeg")}
-              style={styles.image}
-            />
+          <Image source={require("../assets/1to5.jpeg")} style={styles.image} />
 
-          <Image source={require("../assets/5to9.jpeg")} style={styles.image1} />
+          <Image
+            source={require("../assets/5to9.jpeg")}
+            style={styles.image1}
+          />
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -104,6 +109,14 @@ const styles = StyleSheet.create({
   image: {
     width: 300,
     height: 200,
+  },
+  title: {
+    fontSize: 19,
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 7,
+    width: "100%",
   },
   image1: {
     width: 300,

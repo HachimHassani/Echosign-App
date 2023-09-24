@@ -7,8 +7,11 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+
 } from "react-native";
 import HeaderLearning from "../components/HeaderLearning";
+import { router } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const LessonColor = () => {
   const screenWidth = Dimensions.get("window").width;
@@ -18,49 +21,46 @@ const LessonColor = () => {
   const flexItemWidth = (screenWidth - 20) / itemsPerRow; // Subtract any margin or padding
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View className="flex flex-row justify-evenly items-center">
-          <TouchableOpacity className="h-[100%] w-[10%] justify-center items-center mx-2">
-            <Image
-              source={require("../assets/flecheG.png")}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          <View
-            className="h-[50%] w-[60%] justify-evenly items-center"
-            style={{
-              backgroundColor: "#1AA6B7",
+    <SafeAreaView style={styles.container}>
+      <View className="flex-row h-[10%] w-[100%]">
+        <TouchableOpacity
+          className="h-[100%] w-[10%] mx-[5%] justify-center items-center  "
+          onPress={() => router.back()}
+        >
+          <Image
+            source={require("../assets/flecheG.png")}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
 
-              borderRadius: 35,
-              // Add shadows based on platform
-              ...Platform.select({
-                ios: {
-                  shadowColor: "black",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.3,
-                  shadowRadius: 4,
-                },
-                android: {
-                  elevation: 6,
-                },
-              }),
+        <View
+          className="h-[70%] w-[55%] rounded-3xl mt-[4%] justify-center items-center  bg-[#1AA6B7]"
+          style={{
+            // Ajoutez des ombres en fonction de la plateforme
+            ...Platform.select({
+              ios: {
+                shadowColor: "black",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.3,
+                shadowRadius: 4,
+              },
+              android: {
+                elevation: 6,
+              },
+            }),
+          }}
+        >
+          <Text style={styles.title}>Colors ASL</Text>
+        </View>
+        <View className="h-[100%] w-[22%] mx-[2%] ">
+          <Image
+            style={{
+              height: "100%",
+              width: "80%",
             }}
-          >
-            <Text className="text-2xl text-center text-white font-bold">
-              Colors ASL
-            </Text>
-          </View>
-          <View className="h-[100%] w-[20%]">
-            <Image
-              style={{
-                height: "100%",
-                width: "100%",
-              }}
-              source={require("../assets/Mascot5.png")}
-              resizeMode="contain"
-            />
-          </View>
+            source={require("../assets/Mascot5.png")}
+            resizeMode="contain"
+          />
         </View>
       </View>
       <ScrollView style={styles.scrollView}>
@@ -131,7 +131,7 @@ const LessonColor = () => {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -160,6 +160,14 @@ const styles = StyleSheet.create({
     height: undefined,
     aspectRatio: 1, // Maintain aspect ratio
     resizeMode: "contain",
+  },
+  title: {
+    fontSize: 19,
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 7,
+    width: "100%",
   },
 });
 

@@ -8,13 +8,18 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
+import { router } from "expo-router";
 import LogoImage from "../assets/fleche.png";
 
-const ExploreEC = ({onpress}) => {
+const ExploreEC = ({}) => {
   const windowWidth = Dimensions.get("window").width;
+  
 
   return (
-    <View style={{ justifyContent: "space-between", marginHorizontal: "5%" }}>
+    <View
+      style={{ justifyContent: "space-between", marginHorizontal: "5%" }}
+     
+    >
       <View
         style={{
           alignItems: "center",
@@ -54,7 +59,10 @@ const ExploreEC = ({onpress}) => {
           resizeMode="contain"
         />
       </View>
-      <TouchableOpacity style={styles.buttonContainer} onPress={()=>onpress()}>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={() => router.push("/echoSign")}
+      >
         <View>
           <Text style={styles.buttonText}>Explore the Innovation!</Text>
           <Text style={styles.buttonSubText}>

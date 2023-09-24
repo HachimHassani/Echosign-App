@@ -1,14 +1,15 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 const FriendListItem = ({ user, friend, onPressChat, onPressRemove }) => {
-  const opposingUserName = friend.USER === user ? friend.SenderName : friend.ReceiverName;
+  const opposingUserName =
+    friend.USER === user ? friend.ReceiverName : friend.SenderName;
 
   return (
     <View style={styles.container}>
       <Image
         style={styles.avatar}
-        source={{ uri: 'https://i.pravatar.cc/300' }} // Replace with your avatar image URL
+        source={{ uri: "https://i.pravatar.cc/300" }} // Replace with your avatar image URL
       />
       <View style={styles.userInfo}>
         <Text style={styles.username}>{opposingUserName}</Text>
@@ -27,13 +28,13 @@ const FriendListItem = ({ user, friend, onPressChat, onPressRemove }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderColor: '#E1E1E1',
-    backgroundColor: '#FFFFFF', // Background color for the item
+    borderColor: "#E1E1E1",
+    backgroundColor: "#FFFFFF", // Background color for the item
   },
   avatar: {
     width: 40,
@@ -46,28 +47,28 @@ const styles = StyleSheet.create({
   },
   username: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333', // Text color
+    fontWeight: "bold",
+    color: "#333", // Text color
   },
   buttonsContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   chatButton: {
-    backgroundColor: '#2979FF',
+    backgroundColor: "#2979FF",
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 4,
     marginRight: 8,
   },
   removeButton: {
-    backgroundColor: '#F44336',
+    backgroundColor: "#F44336",
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 4,
   },
   buttonText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+    color: "#FFFFFF",
+    fontWeight: "bold",
   },
 });
 

@@ -24,7 +24,6 @@ export default function AppLayout() {
         name="searchusers"
         options={{
           tabBarIcon: require('../../assets/profile.png'),
-
         }}
       />
 
@@ -35,9 +34,6 @@ export default function AppLayout() {
 
         }}
       />
-      
-       
-
     </Tabs>
   );
 }

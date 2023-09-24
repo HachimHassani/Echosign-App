@@ -1,12 +1,16 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { useAuthenticator } from "@aws-amplify/ui-react-native";
+
+
 
 const MainHeader = ({ userName }) => {
+  const { signOut } = useAuthenticator();
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
         <Image
-          source={require('../assets/pdppic.png')}
+          source={require("../assets/pdppic.png")}
           style={styles.profileImage}
         />
         <View>
@@ -14,9 +18,9 @@ const MainHeader = ({ userName }) => {
           <Text style={styles.userName}>{userName}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.settingsButton}>
+      <TouchableOpacity style={styles.settingsButton} onPress={signOut}>
         <Image
-          source={require('../assets/setting.png')}
+          source={require("../assets/logout.png")}
           style={styles.settingsIcon}
         />
       </TouchableOpacity>

@@ -147,10 +147,18 @@ const Ttspage = () => {
         value={text} // Bind the input value to the 'text' state
       />
       <TouchableOpacity style={styles.button} onPress={handleRecordButtonPress}>
-        <FontAwesome name={recording ? 'stop-circle' : 'circle'} size={64} color="white" />
+        <FontAwesome
+          name={recording ? "stop-circle" : "circle"}
+          size={35}
+          color="white"
+        />
       </TouchableOpacity>
-      <Text style={styles.recordingStatusText}>{`Recording status: ${recordingStatus}`}</Text>
-      <Button onPress={ttshandle}>ttshandle</Button>
+      <Text
+        style={styles.recordingStatusText}
+      >{`Recording status: ${recordingStatus}`}</Text>
+      <Button onPress={ttshandle}>
+        tts handle
+      </Button>
     </View>
   );
 }
@@ -158,27 +166,28 @@ const Ttspage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   textInput: {
-    width: '80%',
+    width: "80%",
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 128,
-    height: 128,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 60,
+    height: 60,
     borderRadius: 64,
-    backgroundColor: 'red',
+    backgroundColor: "#1AA6B7",
   },
   recordingStatusText: {
     marginTop: 16,
+    marginBottom: 18, 
   },
 });
 

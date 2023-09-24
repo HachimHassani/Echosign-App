@@ -3,6 +3,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
   Image,
   Text,
   StyleSheet,
@@ -30,8 +31,8 @@ export default function courses() {
   const selectedLCardData5 = cardsData.find((card) => card.id === 9);
 
   return (
-    <View className="flex-1 w-full h-full">
-      <View className="h-[30%] mx-[4%] justify-center items-center">
+    <SafeAreaView className="flex-1 w-full h-full">
+      <View className="h-[30%] px-[4%] justify-center mt-[5%] pb-[1%] items-center bg-slate-50">
         <View
           style={{
             alignItems: "center",
@@ -72,19 +73,27 @@ export default function courses() {
             resizeMode="contain"
           />
         </View>
-        <TouchableOpacity style={styles.buttonContainer}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            className="h-[100%] w-[10%] justify-center items-center mx-2"
+            onPress={() => router.back()}
+          >
+            <Image
+              source={require("../assets/flecheG.png")}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
           <View>
             <Text style={styles.buttonText}>Learn with Sinzee !</Text>
             <Text style={styles.buttonSubText}>
               Discover EchoSign’s lessons ...
             </Text>
           </View>
-          <Image source={LogoImage} />
-        </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView className="h-[60%] px-[2%]">
-        <View className="m-[5%]">
+        <View className="mx-[6%] my-[3%]">
           <Text className="text-black text-xl font-bold opacity-90 text-left">
             Popular lessons ..
           </Text>
@@ -95,22 +104,39 @@ export default function courses() {
 
         <View className="justify-center items-center space-y-4">
           <View className=" flex-row justify-evenly items-center ">
-            <LearnCard data={selectedLCardData2} id={selectedLCardData2.id} redirect={()=>router.push('/lessonABC')}/>
-            <LearnCard data={selectedLCardData3} id={selectedLCardData3.id} redirect={()=>router.push('/lessonABC')}/>
+            <LearnCard
+              data={selectedLCardData2}
+              id={selectedLCardData2.id}
+              redirect={() => router.push("/lessonAnimals")}
+            />
+            <LearnCard
+              data={selectedLCardData3}
+              id={selectedLCardData3.id}
+              redirect={() => router.push("/lessonNum")}
+            />
           </View>
           <View className=" flex-row justify-evenly items-center ">
-            <LearnCard data={selectedLCardData1} id={selectedLCardData1.id} redirect={()=>router.push('/lessonABC')}/>
-            <LearnCard data={selectedLCardData4} id={selectedLCardData4.id} redirect={()=>router.push('/lessonABC')}/>
+            <LearnCard
+              data={selectedLCardData1}
+              id={selectedLCardData1.id}
+              redirect={() => router.push("/lessonABC")}
+            />
+            <LearnCard
+              data={selectedLCardData4}
+              id={selectedLCardData4.id}
+              redirect={() => router.push("/lessonColor")}
+            />
           </View>
           <View>
-            <LearnCard data={selectedLCardData5} id={selectedLCardData5.id} redirect={()=>router.push('/lessonABC')}/>
+            <LearnCard
+              data={selectedLCardData5}
+              id={selectedLCardData5.id}
+              redirect={() => router.push("/courses")}
+            />
           </View>
         </View>
       </ScrollView>
-      <View className="h-[10%] mx-[6%]">
-        
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

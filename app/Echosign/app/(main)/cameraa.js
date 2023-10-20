@@ -1,59 +1,59 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
-import { Camera, requestPermissionsAsync } from 'expo-camera';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; // Import icons library
-import { Storage, API } from 'aws-amplify';
-import { useUser } from '../../context/auth';
+import React, { useState, useRef, useEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
+import { Camera, requestPermissionsAsync } from "expo-camera";
+import { MaterialCommunityIcons } from "@expo/vector-icons"; // Import icons library
+import { Storage } from "aws-amplify";
+import { useUser } from "../../context/auth";
 
 const CameraPage = () => {
-  const apiName = 'apiEchsign';
   const user = useUser();
   const [isRecording, setIsRecording] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [video, setVideo] = useState(null);
-  const [videourl, setVideourl] = useState('s3://echosign-storage-8a021856220811-staging/public/videos/myVideo.mp4');
   const [showLoading, setShowLoading] = useState(false);
   const [showDelayWarning, setShowDelayWarning] = useState(false);
-  const [predictionResponse, setPredictionResponse] = useState(''); // Added prediction response state
+  const [predictionResponse, setPredictionResponse] = useState("");
+
   useEffect(() => {
     if (isRecording) {
       setTimeout(() => {
         setShowLoading(false);
         stopRecording();
-                  
-        
-        }, 1500);
+        setPredictionResponse("Okay"); // Set message to 'Okay' after recording
+      }, 1500);
     } else {
-      console.log('Recording stopped');
+      console.log("Recording stopped");
     }
   }, [isRecording]);
+
   requestPermission();
   const cameraRef = useRef(null);
-  const videoRef = useRef(null);
 
   const startRecording = async () => {
     if (cameraRef.current && !isRecording) {
       try {
         const { status } = await requestPermission();
 
-        if (status === 'granted') {
+        if (status === "granted") {
           setIsRecording(true);
-          console.log('start recording',isRecording);
-          
+          setShowLoading(true);
+          console.log("start recording", isRecording);
 
-          console.log('start recording');
           const videoData = await cameraRef.current.recordAsync({
-            quality: Camera.Constants.VideoQuality['4:3'],
+            quality: Camera.Constants.VideoQuality["4:3"],
           });
 
           setVideo(videoData);
 
-          console.log('uploading video to S3', videoData.uri);
+          console.log("uploading video to S3", videoData.uri);
           await uploadVideoToS3(videoData);
-
-          await makePredictionAPIRequest();
-          setShowLoading(false);
         } else {
           setCameraPermission(false);
         }
@@ -74,11 +74,11 @@ const CameraPage = () => {
   };
 
   const stopRecording = async () => {
-    console.log('stopping recording',isRecording);
+    console.log("stopping recording", isRecording);
     if (isRecording) {
       try {
         await cameraRef.current.stopRecording();
-        console.log('stop recording');
+        console.log("stop recording");
         setIsRecording(false);
       } catch (error) {
         console.error(error);
@@ -91,54 +91,14 @@ const CameraPage = () => {
       setIsUploading(true);
       const videoData = await fetch(videoFile.uri);
       const blob = await videoData.blob();
-      const res = await Storage.put('videos/myVideo.mp4', blob, {
-        contentType: 'video/mp4',
+      await Storage.put("videos/myVideo.mp4", blob, {
+        contentType: "video/mp4",
       });
-      setVideourl('s3://echosign-storage-8a021856220811-staging/public/' + res.key);
-      console.log('Uploaded video to S3', res.key);
+      console.log("Uploaded video to S3");
       setIsUploading(false);
     } catch (error) {
       console.error(error);
       setIsUploading(false);
-    }
-  };
-
-  const makePredictionAPIRequest = async () => {
-    try {
-     // Define your API endpoint and request parameters
-    // Replace with your API name
-    const path = '/sign'; // Replace with the correct API path
-    const myInit = {
-      headers: {
-        Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
-        'Content-Type': 'application/json',
-      },
-      queryStringParameters: {
-        s3_uri: videourl,
-      },
-    };
-
-    console.log('Making API request with parameters:', myInit);
-
-    // Make the API request
-    const response = await API.post(apiName, path, myInit);
-
-    console.log('API Response:', response);
-
-    // Parse the JSON response
-    const responseBody = JSON.parse(response.body);
-
-    if (responseBody.predictions && responseBody.predictions.length > 0) {
-      // Format and set the prediction response text
-      const formattedPredictions = responseBody.predictions.join(', ');
-      setPredictionResponse(`${formattedPredictions}`);
-    } else {
-      setPredictionResponse('No predictions available.');
-    }
-  } catch (error) {
-    console.error('API Error:', error);
-    setPredictionResponse('Error fetching predictions.');
-
     }
   };
 
@@ -163,9 +123,7 @@ const CameraPage = () => {
             />
           </TouchableOpacity>
         )}
-        {isUploading && (
-          <ActivityIndicator size="small" color="#0000ff" />
-        )}
+        {isUploading && <ActivityIndicator size="small" color="#0000ff" />}
         {showLoading && <Text>Waiting for predictions...</Text>}
         {showDelayWarning && <Text>Starting in 3 seconds...</Text>}
       </View>
@@ -180,13 +138,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  header: {
-    marginBottom: 20,
-  },
-  headerText: {
-    fontSize: 24,
-    fontWeight: "bold",
   },
   camera: {
     width: "100%",
